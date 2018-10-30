@@ -1,4 +1,4 @@
-# django_react_blog
+# Django react blog
 
 Example of integration React/Redux and Python/Django frameworks in creating blog application
 
