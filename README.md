@@ -19,7 +19,17 @@ For run project use:
 ```
 manage.py runserver
 ```
+I you change frontend files you should update them:
+```
+cd project/frontend
+yarn build
+```
 
 ### project/frontend
 
 React app created with create-react-app. Frontend files connected via django static provider.
+You can work only with React app via yarn:
+```
+cd project/frontend
+yarn start
+```
