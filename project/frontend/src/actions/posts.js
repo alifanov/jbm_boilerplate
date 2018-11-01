@@ -1,3 +1,5 @@
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
+
 export const POST_RESPONSE = 'posts/RESPONSE';
 
 export function postsFetchDataSuccess(items) {
@@ -9,9 +11,16 @@ export function postsFetchDataSuccess(items) {
 
 export const getPosts = () => {
     return dispatch => {
+        dispatch(showLoading());
         fetch('http://localhost:8000/api/post/')
-            .then((response) => response.json())
+            .then((response) => {
+                dispatch(hideLoading());
+                return response.json()
+            })
             .then((items) => dispatch(postsFetchDataSuccess(items)))
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                dispatch(hideLoading());
+                alert(error)
+            });
     }
 }
