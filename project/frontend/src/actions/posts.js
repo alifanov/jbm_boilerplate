@@ -1,4 +1,4 @@
-import { showLoading, hideLoading } from 'react-redux-loading-bar';
+import {showLoading, hideLoading} from 'react-redux-loading-bar';
 
 export const POST_RESPONSE = 'posts/RESPONSE';
 
@@ -22,5 +22,29 @@ export const getPosts = () => {
                 dispatch(hideLoading());
                 alert(error)
             });
+    }
+}
+
+export const addPost = (title, text) => {
+    return dispatch => {
+        dispatch(showLoading());
+        fetch('http://localhost:8000/api/post/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({title: title, text: text})
+        })
+            .then((response) => {
+                dispatch(hideLoading());
+                dispatch(getPosts());
+                //TODO: add notification of success adding post
+            })
+            .catch((error) => {
+                dispatch(hideLoading());
+                alert(error)
+            });
+
     }
 }

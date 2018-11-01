@@ -1,19 +1,23 @@
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Post from '../../components/post';
+import PostForm from '../../components/form';
 
 import React, {Component} from 'react';
 
-import {getPosts} from '../../actions/posts';
+import {getPosts, addPost} from '../../actions/posts';
+
+import './index.css';
 
 class PostList extends Component {
     componentDidMount() {
-        this.props._getPosts();
+        this.props.getPosts();
     }
 
     render() {
         return (
             <div>
+                <PostForm onSubmit={(title, text) => this.props.addPost(title, text)}/>
                 {this.props.posts.map((p, i) => <Post key={i} content={p}/>)}
             </div>
         );
@@ -21,7 +25,8 @@ class PostList extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    _getPosts: getPosts
+    getPosts: getPosts,
+    addPost: addPost
 }, dispatch);
 
 const mapStateToProps = (state) => ({

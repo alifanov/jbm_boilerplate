@@ -3,7 +3,7 @@ import {Card, Button, CardBody, CardText, CardHeader} from 'reactstrap';
 
 const Post = (props) => {
     return (
-        <Card className='mb-4'>
+        <Card className='mb-4 post-item'>
             <CardHeader>{props.content.title}</CardHeader>
             <CardBody>
                 <CardText>{props.content.text}</CardText>
