@@ -233,3 +233,4 @@ typings/
 
 /project/.idea/
 /project/db.sqlite3
+.idea/
