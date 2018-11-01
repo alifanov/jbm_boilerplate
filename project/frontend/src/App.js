@@ -1,9 +1,17 @@
 import React from 'react';
 import PostList from './pages/posts'
+import LoadingBar from 'react-redux-loading-bar'
+
 
 const App = () => (
     <div>
-        <PostList/>
+        <header>
+            <LoadingBar/>
+        </header>
+        <div
+            className='container'>
+            <PostList/>
+        </div>
     </div>
 )
 
