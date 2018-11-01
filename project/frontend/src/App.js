@@ -1,17 +1,16 @@
 import React from 'react';
 import PostList from './pages/posts'
-import LoadingBar from 'react-redux-loading-bar'
-
+import Header from './components/header'
+import Footer from './components/footer'
 
 const App = () => (
     <div>
-        <header>
-            <LoadingBar/>
-        </header>
+        <Header/>
         <div
             className='container'>
             <PostList/>
         </div>
+        <Footer/>
     </div>
 )
 

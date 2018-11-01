@@ -1,12 +1,18 @@
 import React from 'react';
-import {Card, CardTitle, CardBody, CardText} from 'reactstrap';
+import {Card, Button, CardBody, CardText, CardHeader} from 'reactstrap';
 
 const Post = (props) => {
     return (
-        <Card>
+        <Card className='mb-4'>
+            <CardHeader>{props.content.title}</CardHeader>
             <CardBody>
-                <CardTitle>{props.content.title}</CardTitle>
                 <CardText>{props.content.text}</CardText>
+                <div className="d-flex justify-content-between align-items-center">
+                    <div className="btn-group">
+                        <Button size={'sm'} outline color={'secondary'}>Read</Button>
+                    </div>
+                    <small className="text-muted">9 mins</small>
+                </div>
             </CardBody>
         </Card>
     );
