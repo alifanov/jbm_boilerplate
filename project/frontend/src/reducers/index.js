@@ -1,11 +1,13 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from "redux";
 
-import { loadingBarReducer } from 'react-redux-loading-bar'
+import { loadingBarReducer } from "react-redux-loading-bar";
 
-
-import {posts} from './posts'
+import { posts, postsFilters } from "./posts";
+import { tags } from "./tags";
 
 export default combineReducers({
-    posts,
-    loadingBar: loadingBarReducer
-})
+  posts,
+  tags,
+  postsFilters,
+  loadingBar: loadingBarReducer
+});

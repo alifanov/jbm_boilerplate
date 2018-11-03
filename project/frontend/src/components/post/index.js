@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Button, CardBody, CardText, CardHeader } from "reactstrap";
+import Moment from "react-moment";
 
 const Post = props => {
   return (
@@ -13,7 +14,12 @@ const Post = props => {
               Read
             </Button>
           </div>
-          <small className="text-muted">9 mins</small>
+          <small className="text-muted">
+            Published:&nbsp;
+            <Moment format={"DD.MM.YYYY HH:mm"}>
+              {props.content.created_at}
+            </Moment>
+          </small>
         </div>
       </CardBody>
     </Card>

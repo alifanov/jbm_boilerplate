@@ -1,7 +1,7 @@
 import json
 
 from django.test import TestCase
-from .models import Post
+from .models import (Post, Tag)
 
 from django.urls import reverse
 
@@ -25,7 +25,7 @@ class CreationPostTestCase(TestCase):
 
 
 class PostAPIListViewTestCase(APITestCase):
-    url = reverse('posts:list')
+    url = reverse('post-list')
     TEST_TITLE = 'Title #1'
     TEST_TEXT = 'Text #1'
 
@@ -45,7 +45,7 @@ class PostAPIListViewTestCase(APITestCase):
 
 
 class PostAPICreateViewTestCase(APITestCase):
-    url = reverse('posts:list')
+    url = reverse('post-list')
     TEST_TITLE = 'Title #999'
     TEST_TEXT = 'Text #999'
 
@@ -58,3 +58,35 @@ class PostAPICreateViewTestCase(APITestCase):
         new_post = Post.objects.all()[0]
         self.assertEqual(new_post.title, self.TEST_TITLE)
         self.assertEqual(new_post.text, self.TEST_TEXT)
+
+
+class TagAPIListView(APITestCase):
+    url = reverse('tag-list')
+    TEST_NAME = 'Tag #1'
+
+    def setUp(self):
+        Tag.objects.create(
+            name=self.TEST_NAME,
+        )
+
+    def test_get_tags(self):
+        response = self.client.get(self.url)
+        self.assertTrue(
+            len(json.loads(response.content)) == Tag.objects.count())
+        data = response.data[0]
+        self.assertEqual(data['name'], self.TEST_NAME)
+
+
+class TagAPICreateViewTestCase(APITestCase):
+    url = reverse('tag-list')
+    TEST_NAME = 'Name #999'
+
+    def test_create_posts(self):
+        response = self.client.post(self.url, {
+            'name': self.TEST_NAME,
+        })
+        self.assertEqual(201, response.status_code)
+        new_tag = Tag.objects.all()[0]
+        self.assertEqual(new_tag.name, self.TEST_NAME)
+
+

@@ -1,9 +1,15 @@
-from rest_framework import generics
-from .models import Post
-from .serializers import PostSerializer
+from .models import (Post, Tag)
+from .serializers import (PostSerializer, TagSerializer)
+
+from rest_framework import viewsets, permissions
 
 
 # Create your views here.
-class PostListView(generics.ListCreateAPIView):
+class TagViewSet(viewsets.ModelViewSet):
+    serializer_class = TagSerializer
+    queryset = Tag.objects.all()
+
+
+class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer

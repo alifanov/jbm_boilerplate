@@ -1,13 +1,20 @@
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import Post from "../../components/post";
-import PostForm from "../../components/form";
+import "./index.css";
 
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-import { getPosts, addPost } from "../../actions/posts";
+import { DateTimePicker } from "react-widgets";
 
-import "./index.css";
+import Post from "../../components/post";
+import PostForm from "../../components/forms/post";
+import {
+  getPosts,
+  addPost,
+  setPostsFilterFrom,
+  setPostsFilterTo
+} from "../../actions/index";
+import { postsCounterSelector, postsSelector } from "../../selectors";
 
 class PostList extends Component {
   componentDidMount() {
@@ -15,10 +22,34 @@ class PostList extends Component {
   }
 
   render() {
+    const { posts, postsCounter, filters } = this.props;
     return (
       <div>
         <PostForm onSubmit={(title, text) => this.props.addPost(title, text)} />
-        {this.props.posts.map((p, i) => (
+        <div className={"row m-4"}>
+          <div className="col-sm">
+            <h4>Posts: {postsCounter}</h4>
+          </div>
+          <div className="col-sm">
+            <DateTimePicker
+              onChange={d => {
+                this.props.setPostsFilterFrom(d);
+                this.props.getPosts(filters.from, filters.to);
+              }}
+              placeholder={"From"}
+            />
+          </div>
+          <div className="col-sm">
+            <DateTimePicker
+              onChange={d => {
+                this.props.setPostsFilterTo(d);
+                this.props.getPosts(filters.from, filters.to);
+              }}
+              placeholder={"To"}
+            />
+          </div>
+        </div>
+        {posts.map((p, i) => (
           <Post key={i} content={p} />
         ))}
       </div>
@@ -29,14 +60,18 @@ class PostList extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getPosts: getPosts,
-      addPost: addPost
+      getPosts,
+      addPost,
+      setPostsFilterFrom,
+      setPostsFilterTo
     },
     dispatch
   );
 
 const mapStateToProps = state => ({
-  posts: state.posts
+  posts: postsSelector(state),
+  postsCounter: postsCounterSelector(state),
+  filters: state.postsFilters
 });
 
 export default connect(

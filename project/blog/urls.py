@@ -1,8 +1,13 @@
 from django.urls import path
 from . import views
 
-app_name = 'posts'
+from rest_framework import routers
 
-urlpatterns = [
-    path('api/post/', views.PostListView.as_view(), name='list'),
+router = routers.DefaultRouter(trailing_slash=False)
+router.register('tags', views.TagViewSet)
+router.register('posts', views.PostViewSet)
+
+urlpatterns = router.urls
+
+urlpatterns += [
 ]

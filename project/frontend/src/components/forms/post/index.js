@@ -16,13 +16,13 @@ class PostForm extends Component {
         <h4>New post</h4>
         <Form>
           <FormGroup>
-            <Label for="exampleEmail">Email</Label>
+            <Label for="exampleTitle">Title</Label>
             <Input
               value={this.state.title}
               onChange={e => this.setState({ title: e.target.value })}
-              type="email"
-              name="email"
-              id="exampleEmail"
+              type="text"
+              name="title"
+              id="exampleTitle"
               placeholder="Enter post title"
             />
           </FormGroup>
