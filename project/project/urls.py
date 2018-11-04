@@ -21,7 +21,7 @@ from django.shortcuts import render
 from django.conf import settings, os
 
 urlpatterns = [
-    path('', include('blog.urls')),
+    path('api/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('', lambda req: render(req, 'build/index.html')),
 ]

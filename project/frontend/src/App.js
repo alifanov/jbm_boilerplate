@@ -4,6 +4,9 @@ import TagList from "./pages/tags";
 import Header from "./components/header";
 import Footer from "./components/footer";
 
+import { Notifs } from "redux-notifications";
+import "redux-notifications/lib/styles.css";
+
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const App = () => (
@@ -17,6 +20,7 @@ const App = () => (
         {/*<PostList />*/}
       </div>
       <Footer />
+      <Notifs />
     </div>
   </Router>
 );

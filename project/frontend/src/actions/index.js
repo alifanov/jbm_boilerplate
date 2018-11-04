@@ -34,12 +34,14 @@ export function tagsFetchDataSuccess(items) {
   };
 }
 
-export const getPosts = (from, to) => {
+export const getPosts = (from = null, to = null) => {
   return dispatch => {
     dispatch(showLoading());
+
     fetch(
-      `http://localhost:8000/api/post/?from=${from &&
-        from.toISOString()}&to=${to && to.toISOString()}`
+      `http://localhost:8000/api/posts?created_at__gte=${
+        from ? from.toISOString() : ""
+      }&created_at__lte=${to ? to.toISOString() : ""}`
     )
       .then(response => {
         dispatch(hideLoading());
@@ -72,7 +74,7 @@ export const getTags = () => {
 export const addPost = (title, text) => {
   return dispatch => {
     dispatch(showLoading());
-    fetch("http://localhost:8000/api/post/", {
+    fetch("http://localhost:8000/api/posts/", {
       method: "POST",
       headers: {
         Accept: "application/json",

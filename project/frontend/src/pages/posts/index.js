@@ -14,11 +14,13 @@ import {
   setPostsFilterFrom,
   setPostsFilterTo
 } from "../../actions/index";
+import { wsConnect } from "../../actions/websockets";
 import { postsCounterSelector, postsSelector } from "../../selectors";
 
 class PostList extends Component {
   componentDidMount() {
     this.props.getPosts();
+    this.props.wsConnect();
   }
 
   render() {
@@ -63,7 +65,8 @@ const mapDispatchToProps = dispatch =>
       getPosts,
       addPost,
       setPostsFilterFrom,
-      setPostsFilterTo
+      setPostsFilterTo,
+      wsConnect
     },
     dispatch
   );

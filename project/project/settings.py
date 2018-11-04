@@ -38,8 +38,23 @@ INSTALLED_APPS = [
     'blog',
     'frontend',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'django_filters',
+    'channels'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+}
+
+ASGI_APPLICATION = "project.routing.app"
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
 CORS_ORIGIN_ALLOW_ALL = True
 

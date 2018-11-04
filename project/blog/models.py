@@ -1,4 +1,8 @@
 from django.db import models
+from django.dispatch import receiver
+
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 
 class TimeItem(models.Model):
@@ -23,3 +27,15 @@ class Post(TimeItem):
 
     class Meta:
         ordering = ['-updated_at']
+
+
+@receiver(models.signals.post_save, sender=Post)
+def created_handler(sender, instance, created, *args, **kwargs):
+    if created:
+        layer = get_channel_layer()
+        async_to_sync(layer.group_send)('posts_notification', {
+            'type': 'receive.json',
+            'content': {
+                'msg': 'New post created'
+            }
+        })
