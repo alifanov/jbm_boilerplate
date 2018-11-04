@@ -36,7 +36,6 @@ class PostList extends Component {
             <DateTimePicker
               onChange={d => {
                 this.props.setPostsFilterFrom(d);
-                this.props.getPosts(filters.from, filters.to);
               }}
               placeholder={"From"}
             />
@@ -45,7 +44,6 @@ class PostList extends Component {
             <DateTimePicker
               onChange={d => {
                 this.props.setPostsFilterTo(d);
-                this.props.getPosts(filters.from, filters.to);
               }}
               placeholder={"To"}
             />

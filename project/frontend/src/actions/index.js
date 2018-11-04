@@ -14,16 +14,22 @@ export function postsFetchDataSuccess(items) {
 }
 
 export function setPostsFilterFrom(from) {
-  return {
-    type: POST_FROM_FILTER_SET,
-    from
+  return (dispatch, getState) => {
+    dispatch({
+      type: POST_FROM_FILTER_SET,
+      from
+    });
+    dispatch(getPosts(from, getState().postsFilters.to));
   };
 }
 
 export function setPostsFilterTo(to) {
-  return {
-    type: POST_TO_FILTER_SET,
-    to
+  return (dispatch, getState) => {
+    dispatch({
+      type: POST_TO_FILTER_SET,
+      to
+    });
+    dispatch(getPosts(getState().postsFilters.from, to));
   };
 }
 
@@ -39,7 +45,7 @@ export const getPosts = (from = null, to = null) => {
     dispatch(showLoading());
 
     fetch(
-      `http://localhost:8000/api/posts?created_at__gte=${
+      `http://localhost:8000/api/posts/?created_at__gte=${
         from ? from.toISOString() : ""
       }&created_at__lte=${to ? to.toISOString() : ""}`
     )
