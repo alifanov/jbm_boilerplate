@@ -8,13 +8,16 @@ import { Button, Form, FormGroup, Input, Label, Jumbotron } from "reactstrap";
 class PostForm extends Component {
   state = {
     title: "",
-    text: ""
+    text: "",
+    show: false
   };
   render() {
     return (
-      <Jumbotron>
-        <h4>New post</h4>
-        <Form>
+      <Jumbotron className={this.state.show ? "" : "transparent p-0"}>
+        <a href="#" onClick={() => this.setState({ show: !this.state.show })}>
+          <h4>New post</h4>
+        </a>
+        <Form className={this.state.show ? "d-block" : "d-none"}>
           <FormGroup>
             <Label for="exampleTitle">Title</Label>
             <Input

@@ -13,23 +13,17 @@ export function postsFetchDataSuccess(items) {
   };
 }
 
-export function setPostsFilterFrom(from) {
-  return (dispatch, getState) => {
+export function updatePostsFilter(from, to) {
+  return dispatch => {
     dispatch({
       type: POST_FROM_FILTER_SET,
       from
     });
-    dispatch(getPosts(from, getState().postsFilters.to));
-  };
-}
-
-export function setPostsFilterTo(to) {
-  return (dispatch, getState) => {
     dispatch({
       type: POST_TO_FILTER_SET,
       to
     });
-    dispatch(getPosts(getState().postsFilters.from, to));
+    dispatch(getPosts(from, to));
   };
 }
 

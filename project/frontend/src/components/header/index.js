@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import LoadingBar from "react-redux-loading-bar";
 
 import { Link } from "react-router-dom";
@@ -16,12 +15,6 @@ const Header = props => {
         <Link className={"p-2 text-dark"} to={"/tags/"}>
           Tags
         </Link>
-        {/*<a className="p-2 text-dark" href="#">*/}
-        {/*Page #1*/}
-        {/*</a>*/}
-        {/*<a className="p-2 text-dark" href="#">*/}
-        {/*Page #2*/}
-        {/*</a>*/}
         <a className="p-2 text-dark" href="#">
           Page #3
         </a>
@@ -35,7 +28,5 @@ const Header = props => {
     </div>
   );
 };
-
-Header.propTypes = {};
 
 export default Header;

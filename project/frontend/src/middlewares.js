@@ -49,6 +49,9 @@ export const notificationMiddleware = store => next => action => {
           message: data.content.msg
         })
       );
+      break;
+    default:
+      break;
   }
 
   return next(action);
