@@ -34,20 +34,17 @@ export function tagsFetchDataSuccess(items) {
   };
 }
 
-export const getPosts = (from = null, to = null) => {
+const reqWrapper = (...args) => {
   return dispatch => {
     dispatch(showLoading());
 
-    fetch(
-      `http://localhost:8000/api/posts/?created_at__gte=${
-        from ? from.toISOString() : ""
-      }&created_at__lte=${to ? to.toISOString() : ""}`
-    )
+    fetch(args[0], args[1] || {})
       .then(response => {
         dispatch(hideLoading());
-        return response.json();
+        console.log(response);
+        return response.statusText === "OK" ? response.json() : null;
       })
-      .then(items => dispatch(postsFetchDataSuccess(items)))
+      .then(result => dispatch(args[2](result)))
       .catch(error => {
         dispatch(hideLoading());
         alert(error);
@@ -55,63 +52,77 @@ export const getPosts = (from = null, to = null) => {
   };
 };
 
-export const getTags = () => {
-  return dispatch => {
-    dispatch(showLoading());
-    fetch("http://localhost:8000/api/tag/")
-      .then(response => {
-        dispatch(hideLoading());
-        return response.json();
-      })
-      .then(items => dispatch(tagsFetchDataSuccess(items)))
-      .catch(error => {
-        dispatch(hideLoading());
-        alert(error);
-      });
-  };
+export const getPosts = (from = null, to = null) => {
+  let url = `http://localhost:8000/api/posts/?created_at__gte=${
+    from ? from.toISOString() : ""
+  }&created_at__lte=${to ? to.toISOString() : ""}`;
+
+  return reqWrapper(url, {}, result => postsFetchDataSuccess(result));
+};
+
+export const delPost = id => {
+  let url = `http://localhost:8000/api/posts/${id}/`;
+  return reqWrapper(
+    url,
+    {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    },
+    _ => getPosts()
+  );
 };
 
 export const addPost = (title, text) => {
-  return dispatch => {
-    dispatch(showLoading());
-    fetch("http://localhost:8000/api/posts/", {
+  let url = `http://localhost:8000/api/posts/`;
+  return reqWrapper(
+    url,
+    {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ title: title, text: text })
-    })
-      .then(response => {
-        dispatch(hideLoading());
-        dispatch(getPosts());
-        //TODO: add notification of success adding post
-      })
-      .catch(error => {
-        dispatch(hideLoading());
-        alert(error);
-      });
-  };
+    },
+    _ => getPosts()
+  );
 };
+
+export const getTags = () => {
+  let url = "http://localhost:8000/api/tags/";
+  return reqWrapper(url, {}, res => tagsFetchDataSuccess(res));
+};
+
+export const delTag = id => {
+  let url = `http://localhost:8000/api/tags/${id}/`;
+  return reqWrapper(
+    url,
+    {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    },
+    _ => getTags()
+  );
+};
+
 export const addTag = name => {
-  return dispatch => {
-    dispatch(showLoading());
-    fetch("http://localhost:8000/api/tag/", {
+  let url = `http://localhost:8000/api/tags/`;
+  return reqWrapper(
+    url,
+    {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ name })
-    })
-      .then(response => {
-        dispatch(hideLoading());
-        dispatch(getTags());
-        //TODO: add notification of success adding tag
-      })
-      .catch(error => {
-        dispatch(hideLoading());
-        alert(error);
-      });
-  };
+    },
+    _ => getTags()
+  );
 };

@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { addTag, getTags } from "../../actions/index";
+import { addTag, getTags, delTag } from "../../actions/index";
+import { wsConnect } from "../../actions/websockets";
 import { tagsCounterSelector, tagsSelector } from "../../selectors";
 import { bindActionCreators } from "redux";
 
@@ -11,6 +12,7 @@ import TagForm from "../../components/forms/tag";
 class TagList extends Component {
   componentDidMount() {
     this.props.getTags();
+    this.props.wsConnect();
   }
 
   render() {
@@ -22,7 +24,7 @@ class TagList extends Component {
           <h4>Tags: {counter}</h4>
         </div>
         {tags
-          .map((p, i) => <Tag key={i} {...p} />)
+          .map((p, i) => <Tag key={i} onDelete={this.props.delTag} {...p} />)
           .reduce((prev, curr) => [prev, " ", curr], null)}
       </div>
     );
@@ -36,8 +38,10 @@ TagList.propTypes = {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getTags: getTags,
-      addTag: addTag
+      getTags,
+      addTag,
+      delTag,
+      wsConnect
     },
     dispatch
   );

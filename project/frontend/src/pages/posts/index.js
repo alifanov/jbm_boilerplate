@@ -10,7 +10,12 @@ import { FaCalendar } from "react-icons/fa";
 
 import Post from "../../components/post";
 import PostForm from "../../components/forms/post";
-import { getPosts, addPost, updatePostsFilter } from "../../actions/index";
+import {
+  getPosts,
+  addPost,
+  delPost,
+  updatePostsFilter
+} from "../../actions/index";
 import { wsConnect } from "../../actions/websockets";
 import { postsCounterSelector, postsSelector } from "../../selectors";
 
@@ -55,7 +60,7 @@ class PostList extends Component {
           </DateRangePicker>
         </div>
         {posts.map((p, i) => (
-          <Post key={i} content={p} />
+          <Post key={i} content={p} onDelete={this.props.delPost} />
         ))}
       </div>
     );
@@ -67,6 +72,7 @@ const mapDispatchToProps = dispatch =>
     {
       getPosts,
       addPost,
+      delPost,
       updatePostsFilter,
       wsConnect
     },

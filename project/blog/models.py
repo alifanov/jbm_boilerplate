@@ -29,13 +29,33 @@ class Post(TimeItem):
         ordering = ['-updated_at']
 
 
+def send_msg_to_ws(text):
+    layer = get_channel_layer()
+    async_to_sync(layer.group_send)('posts_notification', {
+        'type': 'receive.json',
+        'content': {
+            'msg': text
+        }
+    })
+
+
 @receiver(models.signals.post_save, sender=Post)
 def created_handler(sender, instance, created, *args, **kwargs):
     if created:
-        layer = get_channel_layer()
-        async_to_sync(layer.group_send)('posts_notification', {
-            'type': 'receive.json',
-            'content': {
-                'msg': 'New post created'
-            }
-        })
+        send_msg_to_ws('New post created')
+
+
+@receiver(models.signals.post_delete, sender=Post)
+def created_handler(sender, instance, *args, **kwargs):
+    send_msg_to_ws('Post deleted')
+
+
+@receiver(models.signals.post_save, sender=Tag)
+def created_handler(sender, instance, created, *args, **kwargs):
+    if created:
+        send_msg_to_ws('New tag created')
+
+
+@receiver(models.signals.post_delete, sender=Tag)
+def created_handler(sender, instance, *args, **kwargs):
+    send_msg_to_ws('Tag deleted')

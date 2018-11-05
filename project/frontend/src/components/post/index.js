@@ -1,11 +1,18 @@
 import React from "react";
 import { Card, Button, CardBody, CardText, CardHeader } from "reactstrap";
+import { FaTimesCircle } from "react-icons/fa";
 import Moment from "react-moment";
 
 const Post = props => {
   return (
     <Card className="mb-4 post-item">
-      <CardHeader>{props.content.title}</CardHeader>
+      <CardHeader className={"d-flex justify-content-between"}>
+        <div className={"d-flex align-items-center"}>{props.content.title}</div>
+        <FaTimesCircle
+          onClick={() => props.onDelete(props.content.id)}
+          style={{ cursor: "pointer" }}
+        />
+      </CardHeader>
       <CardBody>
         <CardText>{props.content.text}</CardText>
         <div className="d-flex justify-content-between align-items-center">
