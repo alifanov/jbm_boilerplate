@@ -6,9 +6,9 @@ from django_filters import rest_framework as filters
 
 
 # Create your views here.
-class TagViewSet(viewsets.ModelViewSet):
-    serializer_class = TagSerializer
-    queryset = Tag.objects.all()
+# class TagViewSet(viewsets.ModelViewSet):
+#     serializer_class = TagSerializer
+#     queryset = Tag.objects.all()
 
 
 class PostViewSet(viewsets.ModelViewSet):

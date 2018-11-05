@@ -31,7 +31,7 @@ class Post(TimeItem):
 
 def send_msg_to_ws(text):
     layer = get_channel_layer()
-    async_to_sync(layer.group_send)('posts_notification', {
+    async_to_sync(layer.group_send)('notifications', {
         'type': 'receive.json',
         'content': {
             'msg': text

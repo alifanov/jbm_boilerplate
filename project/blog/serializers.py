@@ -9,7 +9,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    tags = TagSerializer(many=True, read_only=True)
+    # tags = TagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
