@@ -1,8 +1,8 @@
-# Django react blog
+# Jetbootsmaker boilerplate
 
-Example of integration React/Redux and Python/Django frameworks in creating blog application
+Boilerplate for app on React/Redux, ReactNative/Redux and Python/Django frameworks. With example of app working with CV (face age prediction).
 
-I used pipenv for working with python virtual env. For installing python packages:
+I use pipenv for working with python virtual env. For installing python packages:
 
 ```
 pipenv --three
@@ -31,5 +31,25 @@ React app created with create-react-app. Frontend files connected via django sta
 You can work only with React app via yarn:
 ```
 cd project/frontend
+yarn install
 yarn start
+```
+
+### project/mobile
+
+React native app created with expo framework.
+Run:
+```
+cd project/mobile
+yarn install
+export start
+```
+
+### project/vision
+
+Test model for example application for face age prediction.
+Used by django application.
+Or you can use it as CLI:
+```
+python model.py face.jpg
 ```
