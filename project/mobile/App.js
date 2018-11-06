@@ -1,7 +1,14 @@
 import React from "react";
-import { Button, Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Button,
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Image
+} from "react-native";
 
-import { Camera, Permissions, CameraRoll, MediaLibrary } from "expo";
+import { Camera, Permissions } from "expo";
 
 const styles = StyleSheet.create({
   flipBtn: {
@@ -18,7 +25,8 @@ const styles = StyleSheet.create({
 export default class CameraExample extends React.Component {
   state = {
     hasCameraPermission: null,
-    type: Camera.Constants.Type.back
+    type: Camera.Constants.Type.front,
+    result: null
   };
 
   async componentDidMount() {
@@ -51,7 +59,10 @@ export default class CameraExample extends React.Component {
           "content-type": "multipart/form-data"
         }
       })
-        .then(res => console.log(res))
+        .then(async res => {
+          const text = await res.text();
+          this.setState({ result: `http://192.168.1.38:8000${text}` });
+        })
         .catch(err => console.log(err));
 
       // const asset = await MediaLibrary.createAssetAsync(photo.uri);
@@ -73,42 +84,55 @@ export default class CameraExample extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <Camera
-            style={{ flex: 1 }}
-            type={this.state.type}
-            ref={ref => {
-              this.camera = ref;
-            }}
-          >
-            <View
+          {this.state.result ? (
+            <Image
               style={{
-                flex: 1,
-                backgroundColor: "transparent",
-                flexDirection: "row"
+                position: "absolute",
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0
+              }}
+              source={{ uri: this.state.result }}
+            />
+          ) : (
+            <Camera
+              style={{ flex: 1 }}
+              type={this.state.type}
+              ref={ref => {
+                this.camera = ref;
               }}
             >
-              <TouchableOpacity
+              <View
                 style={{
                   flex: 1,
-                  alignSelf: "flex-end",
-                  alignItems: "center",
-                  backgroundColor: "steelblue"
-                }}
-                onPress={() => {
-                  this.snap();
-                  // this.setState({
-                  //   type:
-                  //     this.state.type === Camera.Constants.Type.back
-                  //       ? Camera.Constants.Type.front
-                  //       : Camera.Constants.Type.back
-                  // });
+                  backgroundColor: "transparent",
+                  flexDirection: "row"
                 }}
               >
-                {/*<Button style={styles.flipBtn} title="Flip" />*/}
-                <Text style={styles.flipBtn}> SNAP </Text>
-              </TouchableOpacity>
-            </View>
-          </Camera>
+                <TouchableOpacity
+                  style={{
+                    flex: 1,
+                    alignSelf: "flex-end",
+                    alignItems: "center",
+                    backgroundColor: "steelblue"
+                  }}
+                  onPress={() => {
+                    this.snap();
+                    // this.setState({
+                    //   type:
+                    //     this.state.type === Camera.Constants.Type.back
+                    //       ? Camera.Constants.Type.front
+                    //       : Camera.Constants.Type.back
+                    // });
+                  }}
+                >
+                  {/*<Button style={styles.flipBtn} title="Flip" />*/}
+                  <Text style={styles.flipBtn}> SNAP </Text>
+                </TouchableOpacity>
+              </View>
+            </Camera>
+          )}
         </View>
       );
     }

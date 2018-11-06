@@ -9,6 +9,10 @@ djangorestframework = "*"
 django-cors-headers = "*"
 django-filter = "*"
 channels = "*"
+keras = "*"
+dlib = "*"
+tensorflow = "*"
+pillow = "*"
 
 [dev-packages]
 coverage = "*"
