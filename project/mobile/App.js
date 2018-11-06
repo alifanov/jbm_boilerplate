@@ -16,22 +16,16 @@ import { Camera, Permissions } from "expo";
 import {
   inactiveTabColor,
   activeTabColor,
-  primaryWhite,
-  primaryBlue,
-  lineColor,
-  secondaryBlue,
   underlaySecondaryBlue
 } from "./colors";
 
 const styles = StyleSheet.create({
   flipBtn: {
-    // flex: 0,
     color: "white",
     paddingVertical: 10,
     fontWeight: "bold",
     fontSize: 30,
     backgroundColor: "steelblue"
-    // borderRadius: 5
   }
 });
 
@@ -62,6 +56,18 @@ class CameraScreen extends React.Component {
       // Assume "photo" is the name of the form field the server expects
       formData.append("photo", { uri: localUri, name: filename, type });
 
+      global._fetch = fetch;
+
+      global.fetch = function(uri, options, ...args) {
+        return global._fetch(uri, options, ...args).then(response => {
+          console.log("Fetch", {
+            request: { uri, options, ...args },
+            response
+          });
+          return response;
+        });
+      };
+
       fetch("http://192.168.1.38:8000/api/upload/img/", {
         method: "POST",
         body: formData,
@@ -70,18 +76,12 @@ class CameraScreen extends React.Component {
         }
       })
         .then(async res => {
-          const text = await res.text();
-          this.setState({ result: `http://192.168.1.38:8000${text}` });
+          this.setState({
+            result: "http://192.168.1.38:8000/static/my.jpg"
+          });
+          global.fetch = global._fetch;
         })
         .catch(err => console.log(err));
-
-      // const asset = await MediaLibrary.createAssetAsync(photo.uri);
-      // const album = await MediaLibrary.getAlbumAsync("Expo");
-      // const result = await MediaLibrary.addAssetsToAlbumAsync(
-      //   [asset],
-      //   album,
-      //   false
-      // );
     }
   }
 
