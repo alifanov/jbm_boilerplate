@@ -31,5 +31,25 @@ React app created with create-react-app. Frontend files connected via django sta
 You can work only with React app via yarn:
 ```
 cd project/frontend
+yarn install
 yarn start
+```
+
+### project/mobile
+
+React native app created with expo framework.
+Run:
+```
+cd project/mobile
+yarn install
+export start
+```
+
+### project/vision
+
+Test model for example application for face age prediction.
+Used by django application.
+Or you can use it as CLI:
+```
+python model.py face.jpg
 ```
