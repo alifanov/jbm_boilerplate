@@ -1,4 +1,5 @@
 import React from "react";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import {
   Button,
   Text,
@@ -8,7 +9,19 @@ import {
   Image
 } from "react-native";
 
+import { createBottomTabNavigator } from "react-navigation";
+
 import { Camera, Permissions } from "expo";
+
+import {
+  inactiveTabColor,
+  activeTabColor,
+  primaryWhite,
+  primaryBlue,
+  lineColor,
+  secondaryBlue,
+  underlaySecondaryBlue
+} from "./colors";
 
 const styles = StyleSheet.create({
   flipBtn: {
@@ -22,7 +35,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class CameraExample extends React.Component {
+class CameraScreen extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.front,
@@ -30,10 +43,7 @@ export default class CameraExample extends React.Component {
   };
 
   async componentDidMount() {
-    const { status } = await Permissions.askAsync(
-      Permissions.CAMERA,
-      Permissions.CAMERA_ROLL
-    );
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === "granted" });
   }
   async snap() {
@@ -136,5 +146,62 @@ export default class CameraExample extends React.Component {
         </View>
       );
     }
+  }
+}
+
+const HomeScreen = props => {
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+        // flexDirection: "column"
+      }}
+    >
+      <Text>Home</Text>
+    </View>
+  );
+};
+
+const RootStack = createBottomTabNavigator(
+  {
+    Home: {
+      screen: HomeScreen
+    },
+    Camera: {
+      screen: CameraScreen
+    }
+  },
+  {
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === "Camera") {
+          iconName = "md-camera";
+        } else if (routeName === "Home") {
+          iconName = "md-home";
+        }
+
+        return <Ionicons name={iconName} size={25} color={tintColor} />;
+      }
+    }),
+    tabBarOptions: {
+      activeTintColor: activeTabColor,
+      inactiveTintColor: inactiveTabColor,
+      style: {
+        backgroundColor: underlaySecondaryBlue
+      }
+    },
+    tabBarPosition: "bottom",
+    animationEnabled: true,
+    swipeEnabled: false
+  }
+);
+
+export default class App extends React.Component {
+  render() {
+    return <RootStack />;
   }
 }
