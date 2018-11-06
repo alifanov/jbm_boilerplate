@@ -1,8 +1,8 @@
-# Django react blog
+# Jetbootsmaker boilerplate
 
-Example of integration React/Redux and Python/Django frameworks in creating blog application
+Boilerplate for app on React/Redux, ReactNative/Redux and Python/Django frameworks. With example of app working with CV (face age prediction).
 
-I used pipenv for working with python virtual env. For installing python packages:
+I use pipenv for working with python virtual env. For installing python packages:
 
 ```
 pipenv --three
