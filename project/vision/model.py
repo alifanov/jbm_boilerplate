@@ -2,7 +2,6 @@ from pathlib import Path
 import dlib
 import numpy as np
 import argparse
-from contextlib import contextmanager
 from .wide_resnet import WideResNet
 from keras.utils.data_utils import get_file
 
@@ -68,6 +67,10 @@ class Model:
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Prediction age by face on image')
+    parser.add_argument('image', help='Path to image')
+    args = parser.parse_args()
+
     model = Model()
-    im = Image.open('my.jpg')
+    im = Image.open(args.image)
     model.predict(im).show()
