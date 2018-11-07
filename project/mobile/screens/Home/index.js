@@ -5,12 +5,15 @@ import { AppLoading } from "expo";
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+
 import { getPosts } from "./../../actions";
+import { wsConnect } from "./../../actions/websockets";
 
 import Post from "../../components/post";
 
 class HomeScreen extends Component {
   componentDidMount() {
+    this.props.wsConnect();
     this.props.getPosts();
   }
 
@@ -36,7 +39,8 @@ class HomeScreen extends Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getPosts
+      getPosts,
+      wsConnect
     },
     dispatch
   );

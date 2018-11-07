@@ -6,7 +6,7 @@ class BlogConfig(AppConfig):
 
     def ready(self):
         from blog.models import Tag
-        print(Tag.__name__)
+        print('Initializing model', Tag.__name__)
 
         # serializers
         from rest_framework import serializers

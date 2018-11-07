@@ -10,6 +10,8 @@ import { Camera, Permissions } from "expo";
 
 import reducer from "./reducers";
 
+import { notificationMiddleware, wsMiddleware } from "./middlewares";
+
 import {
   inactiveTabColor,
   activeTabColor,
@@ -55,7 +57,10 @@ const RootStack = createBottomTabNavigator(
   }
 );
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk, wsMiddleware, notificationMiddleware)
+);
 
 export default class App extends React.Component {
   render() {
