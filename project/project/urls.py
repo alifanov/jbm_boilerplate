@@ -22,6 +22,7 @@ from django.conf import settings, os
 
 urlpatterns = [
     path('api/', include('blog.urls')),
+    path('vision/', include('vision.urls')),
     path('admin/', admin.site.urls),
     path('', lambda req: render(req, 'build/index.html')),
 ]
