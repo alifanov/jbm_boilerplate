@@ -74,16 +74,36 @@ export default class CameraScreen extends React.Component {
       return (
         <View style={{ flex: 1 }}>
           {this.state.result ? (
-            <Image
+            <View
               style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0
+                flex: 1,
+                flexDirection: "row"
               }}
-              source={{ uri: this.state.result }}
-            />
+            >
+              <Image
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  bottom: 0,
+                  right: 0
+                }}
+                source={{ uri: this.state.result }}
+              />
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                  alignSelf: "flex-end",
+                  alignItems: "center",
+                  backgroundColor: "steelblue"
+                }}
+                onPress={() => {
+                  this.setState({ result: null });
+                }}
+              >
+                <Text style={styles.flipBtn}> CLEAR </Text>
+              </TouchableOpacity>
+            </View>
           ) : (
             <Camera
               style={{ flex: 1 }}

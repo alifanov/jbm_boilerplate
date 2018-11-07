@@ -4,6 +4,7 @@ import numpy as np
 import argparse
 from .wide_resnet import WideResNet
 from keras.utils.data_utils import get_file
+from keras import backend as K
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -27,7 +28,7 @@ class Model:
         img_w, img_h = img.size
         detected = self.detector(np.array(img), 1)
         faces = np.empty((len(detected), self.IMG_SIZE, self.IMG_SIZE, 3))
-        print('Faces detected: ', len(detected))
+        result_img = None
         if len(detected) > 0:
             for i, d in enumerate(detected):
                 x1, y1, x2, y2, w, h = d.left(), d.top(), d.right() + 1, d.bottom() + 1, d.width(), d.height()
@@ -54,7 +55,9 @@ class Model:
                                         "Female" if predicted_genders[i][0] > 0.5 else "Male")
                 draw = ImageDraw.Draw(img)
                 draw.text((d.left() - 40, d.top() - 80), label, font=ImageFont.truetype("Arial", size=30), fill='red')
-            return img
+            result_img = img
+        K.clear_session()
+        return result_img
 
 
 if __name__ == '__main__':
