@@ -5,8 +5,9 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import DateRangePicker from "react-bootstrap-daterangepicker";
-import { Button } from "reactstrap";
-import { FaCalendar } from "react-icons/fa";
+import { Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
+
+import { FaCalendar, FaSearch } from "react-icons/fa";
 
 import Post from "../../components/post";
 import PostForm from "../../components/forms/post";
@@ -14,7 +15,8 @@ import {
   getPosts,
   addPost,
   delPost,
-  updatePostsFilter
+  updatePostsFilter,
+  setPostsSearchFilter
 } from "../../actions/index";
 import { wsConnect } from "../../actions/websockets";
 import { postsCounterSelector, postsSelector } from "../../selectors";
@@ -39,6 +41,17 @@ class PostList extends Component {
         <PostForm onSubmit={(title, text) => this.props.addPost(title, text)} />
         <div className={"d-flex flex-row mb-4 justify-content-between"}>
           <h4>Posts: {postsCounter}</h4>
+          <InputGroup
+            style={{
+              width: "50%"
+            }}
+          >
+            <InputGroupAddon addonType="prepend">&#x1F50D;</InputGroupAddon>
+            <Input
+              placeholder="search"
+              onChange={e => this.props.setPostsSearchFilter(e.target.value)}
+            />
+          </InputGroup>
           <DateRangePicker
             opens={"left"}
             onApply={(e, p) => {
@@ -74,7 +87,8 @@ const mapDispatchToProps = dispatch =>
       addPost,
       delPost,
       updatePostsFilter,
-      wsConnect
+      wsConnect,
+      setPostsSearchFilter
     },
     dispatch
   );
