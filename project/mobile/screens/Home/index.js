@@ -1,18 +1,51 @@
-import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
-const HomeScreen = props => {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-      }}
-    >
-      <Text>Home</Text>
-    </View>
+import { AppLoading } from "expo";
+
+import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { getPosts } from "./../../actions";
+
+import Post from "../../components/post";
+
+class HomeScreen extends Component {
+  componentDidMount() {
+    this.props.getPosts();
+  }
+
+  render() {
+    return this.props.posts.length === 0 ? (
+      <AppLoading onFinish={() => null} onError={console.warn} />
+    ) : (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "flex-start"
+        }}
+      >
+        {this.props.posts.map((p, i) => (
+          <Post key={i} {...p} />
+        ))}
+      </View>
+    );
+  }
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getPosts
+    },
+    dispatch
   );
-};
 
-export default HomeScreen;
+const mapStateToProps = state => ({
+  posts: state.posts
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeScreen);

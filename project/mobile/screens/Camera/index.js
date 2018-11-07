@@ -35,17 +35,17 @@ export default class CameraScreen extends React.Component {
       let formData = new FormData();
       formData.append("photo", { uri: localUri, name: filename, type });
 
-      global._fetch = fetch; // for debug
+      // global._fetch = fetch; // for debug
 
-      global.fetch = function(uri, options, ...args) {
-        return global._fetch(uri, options, ...args).then(response => {
-          console.log("Fetch", {
-            request: { uri, options, ...args },
-            response
-          });
-          return response;
-        });
-      };
+      // global.fetch = function(uri, options, ...args) {
+      //   return global._fetch(uri, options, ...args).then(response => {
+      //     console.log("Fetch", {
+      //       request: { uri, options, ...args },
+      //       response
+      //     });
+      //     return response;
+      //   });
+      // };
 
       fetch("http://192.168.1.38:8000/vision/upload/img/", {
         method: "POST",
@@ -58,7 +58,7 @@ export default class CameraScreen extends React.Component {
           this.setState({
             result: "http://192.168.1.38:8000/static/my.jpg"
           });
-          global.fetch = global._fetch;
+          // global.fetch = global._fetch;
         })
         .catch(err => console.log(err));
     }

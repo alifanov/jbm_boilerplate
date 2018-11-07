@@ -1,8 +1,14 @@
 import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { createBottomTabNavigator } from "react-navigation";
 
+import { createStore, applyMiddleware } from "redux";
+import { Provider, connect } from "react-redux";
+import thunk from "redux-thunk";
+
+import { createBottomTabNavigator } from "react-navigation";
 import { Camera, Permissions } from "expo";
+
+import reducer from "./reducers";
 
 import {
   inactiveTabColor,
@@ -49,8 +55,14 @@ const RootStack = createBottomTabNavigator(
   }
 );
 
+const store = createStore(reducer, applyMiddleware(thunk));
+
 export default class App extends React.Component {
   render() {
-    return <RootStack />;
+    return (
+      <Provider store={store}>
+        <RootStack />
+      </Provider>
+    );
   }
 }
