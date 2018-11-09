@@ -1,11 +1,14 @@
 {
   "expo": {
-    "name": "dj_rn_blog_example",
+    "name": "[JBM] Face age detection",
     "description": "This project is really great.",
-    "slug": "dj_rn_blog_example",
+    "slug": "jbm-face-age-detection",
     "privacy": "public",
     "sdkVersion": "31.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

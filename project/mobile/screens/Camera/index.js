@@ -35,18 +35,6 @@ export default class CameraScreen extends React.Component {
       let formData = new FormData();
       formData.append("photo", { uri: localUri, name: filename, type });
 
-      // global._fetch = fetch; // for debug
-
-      // global.fetch = function(uri, options, ...args) {
-      //   return global._fetch(uri, options, ...args).then(response => {
-      //     console.log("Fetch", {
-      //       request: { uri, options, ...args },
-      //       response
-      //     });
-      //     return response;
-      //   });
-      // };
-
       fetch("http://ec2-176-34-133-231.eu-west-1.compute.amazonaws.com/vision/upload/img/", {
         method: "POST",
         body: formData,
@@ -58,7 +46,6 @@ export default class CameraScreen extends React.Component {
           this.setState({
             result: "http://ec2-176-34-133-231.eu-west-1.compute.amazonaws.com/static/my.jpg"
           });
-          // global.fetch = global._fetch;
         })
         .catch(err => console.log(err));
     }
@@ -108,6 +95,7 @@ export default class CameraScreen extends React.Component {
             <Camera
               style={{ flex: 1 }}
               type={this.state.type}
+              autoFocus={false}
               ref={ref => {
                 this.camera = ref;
               }}
