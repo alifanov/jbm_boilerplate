@@ -1,41 +1,46 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+
+const styles = StyleSheet.create({
+  wrapper: {
+    alignSelf: "stretch",
+    borderRadius: 5,
+    backgroundColor: "gray",
+    marginVertical: 10,
+    marginHorizontal: 10
+  },
+  postTitle: {
+    padding: 5,
+    borderBottomColor: "#333",
+    borderBottomWidth: 1
+  },
+  postBody: {
+    padding: 5
+  },
+  text: {
+    color: "#ddd"
+  }
+});
 
 const Post = props => {
   return (
     <View
-      style={{
-        alignSelf: "stretch",
-        borderRadius: 5,
-        backgroundColor: "gray",
-        marginVertical: 10,
-        marginHorizontal: 10
-      }}
+      style={styles.wrapper}
     >
       <View
-        style={{
-          padding: 5,
-          borderBottomColor: "#333",
-          borderBottomWidth: 1
-        }}
+        style={styles.postTitle}
       >
         <Text
-          style={{
-            color: "#ddd"
-          }}
+          style={styles.text}
         >
           {props.title}
         </Text>
       </View>
       <View
-        style={{
-          padding: 5
-        }}
+        style={styles.postBody}
       >
         <Text
-          style={{
-            color: "#ddd"
-          }}
+          style={styles.text}
         >
           {props.text}
         </Text>
@@ -43,7 +48,5 @@ const Post = props => {
     </View>
   );
 };
-
-Post.propTypes = {};
 
 export default Post;

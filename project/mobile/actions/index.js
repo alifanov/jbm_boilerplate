@@ -1,20 +1,19 @@
 export const POST_RESPONSE = "posts/RESPONSE";
 
-const reqWrapper = (...args) => {
+const reqWrapper = async (...args) => {
   return dispatch => {
     // dispatch(showLoading());
 
-    fetch(args[0], args[1] || {})
-      .then(response => {
-        // dispatch(hideLoading());
-        console.log(response);
-        return response.json();
-      })
-      .then(result => dispatch(args[2](result)))
-      .catch(error => {
-        // dispatch(hideLoading());
-        alert(error);
-      });
+    try {
+      let response = await fetch(args[0], args[1] || {});
+      // dispatch(hideLoading());
+      console.log(response)
+      let result = await response.json();
+      dispatch(args[2](result));
+    } catch (e) {
+      // dispatch(hideLoading());
+      console.error(e)
+    }
   };
 };
 
