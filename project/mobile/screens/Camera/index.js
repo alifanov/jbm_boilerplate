@@ -3,12 +3,38 @@ import { Camera, Permissions } from "expo";
 import { Text, View, TouchableOpacity, StyleSheet, Image } from "react-native";
 
 const styles = StyleSheet.create({
+  wrapper: { flex: 1 },
   flipBtn: {
+    flex: 1,
+    alignSelf: "flex-end",
+    alignItems: "center",
+    backgroundColor: "steelblue"
+  },
+  flipBtnText: {
     color: "white",
     paddingVertical: 10,
     fontWeight: "bold",
     fontSize: 30,
     backgroundColor: "steelblue"
+  },
+  cameraStyle: {
+    flex: 1
+  },
+  cameraVisibleArea: {
+    flex: 1,
+    backgroundColor: "transparent",
+    flexDirection: "row"
+  },
+  cameraResultWrapper: {
+    flex: 1,
+    flexDirection: "row"
+  },
+  cameraResult: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
   }
 });
 
@@ -25,6 +51,7 @@ export default class CameraScreen extends React.Component {
   }
   async snap() {
     if (this.camera) {
+      const baseUrl = 'http://ec2-176-34-133-231.eu-west-1.compute.amazonaws.com';
       let photo = await this.camera.takePictureAsync();
 
       let localUri = photo.uri;
@@ -35,19 +62,20 @@ export default class CameraScreen extends React.Component {
       let formData = new FormData();
       formData.append("photo", { uri: localUri, name: filename, type });
 
-      fetch("http://ec2-176-34-133-231.eu-west-1.compute.amazonaws.com/vision/upload/img/", {
-        method: "POST",
-        body: formData,
-        header: {
-          "content-type": "multipart/form-data"
-        }
-      })
-        .then(async _ => {
-          this.setState({
-            result: "http://ec2-176-34-133-231.eu-west-1.compute.amazonaws.com/static/my.jpg"
-          });
+      try {
+        let response = await fetch(`${baseUrl}/vision/upload/img/`, {
+          method: "POST",
+          body: formData,
+          header: {
+            "content-type": "multipart/form-data"
+          }
+        });
+        this.setState({
+          result: `${baseUrl}/static/my.jpg`
         })
-        .catch(err => console.log(err));
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 
@@ -59,77 +87,47 @@ export default class CameraScreen extends React.Component {
       return <Text>No access to camera</Text>;
     } else {
       return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.wrapper}>
           {this.state.result ? (
             <View
-              style={{
-                flex: 1,
-                flexDirection: "row"
-              }}
+              style={styles.cameraResultWrapper}
             >
               <Image
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  bottom: 0,
-                  right: 0
-                }}
+                style={styles.cameraResult}
                 source={{ uri: this.state.result }}
               />
               <TouchableOpacity
-                style={{
-                  flex: 1,
-                  alignSelf: "flex-end",
-                  alignItems: "center",
-                  backgroundColor: "steelblue"
-                }}
+                style={styles.flipBtn}
                 onPress={() => {
                   this.setState({ result: null });
                 }}
               >
-                <Text style={styles.flipBtn}> CLEAR </Text>
+                <Text style={styles.flipBtnText}> CLEAR </Text>
               </TouchableOpacity>
             </View>
           ) : (
-            <Camera
-              style={{ flex: 1 }}
-              type={this.state.type}
-              autoFocus={false}
-              ref={ref => {
-                this.camera = ref;
-              }}
-            >
-              <View
-                style={{
-                  flex: 1,
-                  backgroundColor: "transparent",
-                  flexDirection: "row"
+              <Camera
+                style={styles.cameraStyle}
+                type={this.state.type}
+                autoFocus={false}
+                ref={ref => {
+                  this.camera = ref;
                 }}
               >
-                <TouchableOpacity
-                  style={{
-                    flex: 1,
-                    alignSelf: "flex-end",
-                    alignItems: "center",
-                    backgroundColor: "steelblue"
-                  }}
-                  onPress={() => {
-                    this.snap();
-                    // this.setState({
-                    //   type:
-                    //     this.state.type === Camera.Constants.Type.back
-                    //       ? Camera.Constants.Type.front
-                    //       : Camera.Constants.Type.back
-                    // });
-                  }}
+                <View
+                  style={styles.cameraVisibleArea}
                 >
-                  {/*<Button style={styles.flipBtn} title="Flip" />*/}
-                  <Text style={styles.flipBtn}> SNAP </Text>
-                </TouchableOpacity>
-              </View>
-            </Camera>
-          )}
+                  <TouchableOpacity
+                    style={styles.flipBtn}
+                    onPress={() => {
+                      this.snap();
+                    }}
+                  >
+                    <Text style={styles.flipBtnText}> SNAP </Text>
+                  </TouchableOpacity>
+                </View>
+              </Camera>
+            )}
         </View>
       );
     }

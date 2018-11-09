@@ -21,18 +21,18 @@ class HomeScreen extends Component {
     return this.props.posts.length === 0 ? (
       <AppLoading onFinish={() => null} onError={console.warn} />
     ) : (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "flex-start"
-        }}
-      >
-        {this.props.posts.map((p, i) => (
-          <Post key={i} {...p} />
-        ))}
-      </View>
-    );
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "flex-start"
+          }}
+        >
+          {this.props.posts.map((p, i) => (
+            <Post key={i} {...p} />
+          ))}
+        </View>
+      );
   }
 }
 
