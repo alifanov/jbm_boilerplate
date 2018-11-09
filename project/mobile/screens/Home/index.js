@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import { AppLoading } from "expo";
 
@@ -11,6 +11,14 @@ import { wsConnect } from "./../../actions/websockets";
 
 import Post from "../../components/post";
 
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-start"
+  }
+})
+
 class HomeScreen extends Component {
   componentDidMount() {
     this.props.wsConnect();
@@ -19,14 +27,10 @@ class HomeScreen extends Component {
 
   render() {
     return this.props.posts.length === 0 ? (
-      <AppLoading onFinish={() => null} onError={console.warn} />
+      <AppLoading onFinish={() => null} onError={console.error} />
     ) : (
         <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "flex-start"
-          }}
+          style={styles.wrapper}
         >
           {this.props.posts.map((p, i) => (
             <Post key={i} {...p} />
