@@ -240,3 +240,7 @@ typings/
 !.elasticbeanstalk/*.global.yml
 /project/.elasticbeanstalk/
 /project/jbm-backend-task-def.json
+project/vision/pretrained_models/weights.28-3.73.hdf5
+project/uploads/my.jpg
+project/mobile/yarn.lock
+.vscode/settings.json
