@@ -29,6 +29,7 @@ class Model:
         detected = self.detector(np.array(img), 1)
         faces = np.empty((len(detected), self.IMG_SIZE, self.IMG_SIZE, 3))
         result_img = None
+        print(f'Faces detected: {len(detected)}')
         if len(detected) > 0:
             for i, d in enumerate(detected):
                 x1, y1, x2, y2, w, h = d.left(), d.top(), d.right() + 1, d.bottom() + 1, d.width(), d.height()
@@ -54,7 +55,7 @@ class Model:
                 label = "{}yo, {}".format(int(predicted_ages[i]),
                                         "Female" if predicted_genders[i][0] > 0.5 else "Male")
                 draw = ImageDraw.Draw(img)
-                draw.text((d.left() - 40, d.top() - 80), label, font=ImageFont.truetype("Arial", size=30), fill='red')
+                draw.text((d.left() - 40, d.top() - 80), label, font=ImageFont.truetype("DejaVuSans", size=30), fill='red')
             result_img = img
         K.clear_session()
         return result_img

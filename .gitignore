@@ -234,3 +234,9 @@ typings/
 /project/.idea/
 /project/db.sqlite3
 .idea/
+
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+/project/.elasticbeanstalk/
+/project/jbm-backend-task-def.json

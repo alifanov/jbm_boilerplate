@@ -26,6 +26,6 @@ export const postsFetchDataSuccess = items => {
 };
 
 export const getPosts = () => {
-  let url = "http://192.168.1.38:8000/api/posts/";
+  let url = "http://ec2-176-34-133-231.eu-west-1.compute.amazonaws.com/api/posts/";
   return reqWrapper(url, {}, items => postsFetchDataSuccess(items));
 };

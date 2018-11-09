@@ -47,7 +47,7 @@ export default class CameraScreen extends React.Component {
       //   });
       // };
 
-      fetch("http://192.168.1.38:8000/vision/upload/img/", {
+      fetch("http://ec2-176-34-133-231.eu-west-1.compute.amazonaws.com/vision/upload/img/", {
         method: "POST",
         body: formData,
         header: {
@@ -56,7 +56,7 @@ export default class CameraScreen extends React.Component {
       })
         .then(async _ => {
           this.setState({
-            result: "http://192.168.1.38:8000/static/my.jpg"
+            result: "http://ec2-176-34-133-231.eu-west-1.compute.amazonaws.com/static/my.jpg"
           });
           // global.fetch = global._fetch;
         })
