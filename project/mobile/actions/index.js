@@ -1,14 +1,14 @@
 export const POST_RESPONSE = "posts/RESPONSE";
 
-const reqWrapper = async (...args) => {
-  return dispatch => {
+const reqWrapper = (...args) => {
+  return async dispatch => {
     // dispatch(showLoading());
 
     try {
-      let response = await fetch(args[0], args[1] || {});
+      const response = await fetch(args[0], args[1] || {});
       // dispatch(hideLoading());
       console.log(response);
-      let result = await response.json();
+      const result = await response.json();
       dispatch(args[2](result));
     } catch (e) {
       // dispatch(hideLoading());
