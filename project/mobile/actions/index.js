@@ -7,12 +7,12 @@ const reqWrapper = async (...args) => {
     try {
       let response = await fetch(args[0], args[1] || {});
       // dispatch(hideLoading());
-      console.log(response)
+      console.log(response);
       let result = await response.json();
       dispatch(args[2](result));
     } catch (e) {
       // dispatch(hideLoading());
-      console.error(e)
+      console.error(e);
     }
   };
 };
@@ -25,6 +25,7 @@ export const postsFetchDataSuccess = items => {
 };
 
 export const getPosts = () => {
-  let url = "http://ec2-176-34-133-231.eu-west-1.compute.amazonaws.com/api/posts/";
+  let url =
+    "http://ec2-34-253-212-186.eu-west-1.compute.amazonaws.com/api/posts/";
   return reqWrapper(url, {}, items => postsFetchDataSuccess(items));
 };

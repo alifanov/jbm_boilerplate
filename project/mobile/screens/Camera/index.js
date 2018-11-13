@@ -51,7 +51,8 @@ export default class CameraScreen extends React.Component {
   }
   async snap() {
     if (this.camera) {
-      const baseUrl = 'http://ec2-176-34-133-231.eu-west-1.compute.amazonaws.com';
+      const baseUrl =
+        "http://ec2-34-253-212-186.eu-west-1.compute.amazonaws.com";
       let photo = await this.camera.takePictureAsync();
 
       let localUri = photo.uri;
@@ -72,9 +73,9 @@ export default class CameraScreen extends React.Component {
         });
         this.setState({
           result: `${baseUrl}/static/my.jpg`
-        })
+        });
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
     }
   }
@@ -89,9 +90,7 @@ export default class CameraScreen extends React.Component {
       return (
         <View style={styles.wrapper}>
           {this.state.result ? (
-            <View
-              style={styles.cameraResultWrapper}
-            >
+            <View style={styles.cameraResultWrapper}>
               <Image
                 style={styles.cameraResult}
                 source={{ uri: this.state.result }}
@@ -106,28 +105,26 @@ export default class CameraScreen extends React.Component {
               </TouchableOpacity>
             </View>
           ) : (
-              <Camera
-                style={styles.cameraStyle}
-                type={this.state.type}
-                autoFocus={false}
-                ref={ref => {
-                  this.camera = ref;
-                }}
-              >
-                <View
-                  style={styles.cameraVisibleArea}
+            <Camera
+              style={styles.cameraStyle}
+              type={this.state.type}
+              autoFocus={false}
+              ref={ref => {
+                this.camera = ref;
+              }}
+            >
+              <View style={styles.cameraVisibleArea}>
+                <TouchableOpacity
+                  style={styles.flipBtn}
+                  onPress={() => {
+                    this.snap();
+                  }}
                 >
-                  <TouchableOpacity
-                    style={styles.flipBtn}
-                    onPress={() => {
-                      this.snap();
-                    }}
-                  >
-                    <Text style={styles.flipBtnText}> SNAP </Text>
-                  </TouchableOpacity>
-                </View>
-              </Camera>
-            )}
+                  <Text style={styles.flipBtnText}> SNAP </Text>
+                </TouchableOpacity>
+              </View>
+            </Camera>
+          )}
         </View>
       );
     }
