@@ -22,31 +22,15 @@ const styles = StyleSheet.create({
   }
 });
 
-const Post = props => {
+export default props => {
   return (
-    <View
-      style={styles.wrapper}
-    >
-      <View
-        style={styles.postTitle}
-      >
-        <Text
-          style={styles.text}
-        >
-          {props.title}
-        </Text>
+    <View style={styles.wrapper}>
+      <View style={styles.postTitle}>
+        <Text style={styles.text}>{props.title}</Text>
       </View>
-      <View
-        style={styles.postBody}
-      >
-        <Text
-          style={styles.text}
-        >
-          {props.text}
-        </Text>
+      <View style={styles.postBody}>
+        <Text style={styles.text}>{props.text}</Text>
       </View>
     </View>
   );
 };
-
-export default Post;
