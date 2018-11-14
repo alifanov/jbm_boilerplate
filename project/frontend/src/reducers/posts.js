@@ -5,25 +5,25 @@ import {
   POST_SEARCH_FILTER_SET
 } from "../actions/index";
 
-export const posts = (state = [], action) => {
-  switch (action.type) {
-    case POST_RESPONSE:
-      return action.items;
-
-    default:
-      return state;
+const initialState = {
+  posts: [],
+  postsFilters: {
+    from: null,
+    to: null,
+    q: null
   }
 };
 
-export const postsFilters = (state = { from: null, to: null }, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
+    case POST_RESPONSE:
+      return { ...state, posts: action.items };
     case POST_FROM_FILTER_SET:
-      return { from: action.from, to: state.to, q: state.q };
+      return { ...state, from: action.from };
     case POST_TO_FILTER_SET:
-      return { to: action.to, from: state.from, q: state.q };
+      return { ...state, to: action.to };
     case POST_SEARCH_FILTER_SET:
-      return { to: state.to, from: state.from, q: action.q };
-
+      return { ...state, q: action.q };
     default:
       return state;
   }

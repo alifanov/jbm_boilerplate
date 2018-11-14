@@ -96,7 +96,7 @@ const mapDispatchToProps = dispatch =>
 const mapStateToProps = state => ({
   posts: postsSelector(state),
   postsCounter: postsCounterSelector(state),
-  filters: state.postsFilters
+  filters: state.postsReducer.postsFilters
 });
 
 export default connect(

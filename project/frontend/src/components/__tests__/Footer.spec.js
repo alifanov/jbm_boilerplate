@@ -2,6 +2,8 @@ import React from "react";
 import Footer from "../footer";
 import { shallow } from "../../enzyme";
 
+import renderer from "react-test-renderer";
+
 describe(">>> Footer test", () => {
   let footer;
   beforeEach(() => {
@@ -18,5 +20,12 @@ describe(">>> Footer test", () => {
         .at(1)
         .text()
     ).toEqual("Blog example");
+  });
+});
+
+describe(">>>Footer --- Snapshot", () => {
+  it("+++capturing Snapshot of Footer", () => {
+    const renderedValue = renderer.create(<Footer />).toJSON();
+    expect(renderedValue).toMatchSnapshot();
   });
 });

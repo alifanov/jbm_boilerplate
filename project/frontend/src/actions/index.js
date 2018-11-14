@@ -47,20 +47,22 @@ export function tagsFetchDataSuccess(items) {
 }
 
 const reqWrapper = (...args) => {
-  return dispatch => {
+  return async dispatch => {
     dispatch(showLoading());
 
-    fetch(args[0], args[1] || {})
-      .then(response => {
-        dispatch(hideLoading());
-        console.log(response);
-        return response.statusText === "OK" ? response.json() : null;
-      })
-      .then(result => dispatch(args[2](result)))
-      .catch(error => {
-        dispatch(hideLoading());
-        alert(error);
-      });
+    try {
+      const response = await fetch(args[0], args[1] || {});
+      dispatch(hideLoading());
+      console.log(response);
+      const result =
+        response.statusText === "OK" ? await response.json() : null;
+      console.log(result);
+      dispatch(args[2](result));
+      console.log("end", args[2](result));
+    } catch (e) {
+      dispatch(hideLoading());
+      console.error(e);
+    }
   };
 };
 
