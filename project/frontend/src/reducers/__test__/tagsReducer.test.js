@@ -7,4 +7,9 @@ describe(">>>R E D U C E R --- Test tagsReducers", () => {
     state = tagsReducer(state, { type: TAG_RESPONSE, items: [1, 2, 3, 4] });
     expect(state).toEqual({ tags: [1, 2, 3, 4] });
   });
+  it("+++ reducer for UNKNOWN ACTION", () => {
+    let state = { tags: [1] };
+    state = tagsReducer(state, { type: "UNKNOWN ACTION", items: [1, 2, 3, 4] });
+    expect(state).toEqual({ tags: [1] });
+  });
 });

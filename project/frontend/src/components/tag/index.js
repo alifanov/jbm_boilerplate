@@ -22,7 +22,8 @@ const Tag = props => {
 };
 
 Tag.propTypes = {
-  name: PropTypes.string
+  name: PropTypes.string,
+  onDelete: PropTypes.func
 };
 
 export default Tag;
