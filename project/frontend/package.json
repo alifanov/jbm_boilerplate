@@ -46,7 +46,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts --verbose --coverage",
+    "test:update": "react-scripts --verbose --coverage --updateSnapshot",
+    "test:watch": "react-scripts --verbose --watch",
+    "coverage": "react-scripts --verbose --coverage && open ./coverage/lcov-report/index.html",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

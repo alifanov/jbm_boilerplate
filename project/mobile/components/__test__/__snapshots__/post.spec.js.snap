@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>>Post --- Snapshot +++capturing Snapshot of Post 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "stretch",
+      "backgroundColor": "gray",
+      "borderRadius": 5,
+      "marginHorizontal": 10,
+      "marginVertical": 10,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "borderBottomColor": "#333",
+        "borderBottomWidth": 1,
+        "padding": 5,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#ddd",
+        }
+      }
+    >
+      Title
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "padding": 5,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#ddd",
+        }
+      }
+    >
+      Text
+    </Text>
+  </View>
+</View>
+`;
