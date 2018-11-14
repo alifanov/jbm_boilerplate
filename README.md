@@ -42,7 +42,7 @@ Run:
 ```
 cd project/mobile
 yarn install
-export start
+expo start
 ```
 
 ### project/vision
