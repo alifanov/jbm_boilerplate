@@ -46,19 +46,15 @@ export function tagsFetchDataSuccess(items) {
   };
 }
 
-const reqWrapper = (...args) => {
+export const reqWrapper = (...args) => {
   return async dispatch => {
     dispatch(showLoading());
-
     try {
       const response = await fetch(args[0], args[1] || {});
       dispatch(hideLoading());
-      console.log(response);
       const result =
         response.statusText === "OK" ? await response.json() : null;
-      console.log(result);
       dispatch(args[2](result));
-      console.log("end", args[2](result));
     } catch (e) {
       dispatch(hideLoading());
       console.error(e);
