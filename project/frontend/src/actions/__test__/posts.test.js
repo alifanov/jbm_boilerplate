@@ -1,16 +1,15 @@
 import {
   postsFetchDataSuccess,
   POST_RESPONSE,
-  tagsFetchDataSuccess,
-  TAG_RESPONSE,
   setPostsSearchFilter,
   updatePostsFilter,
   POST_FROM_FILTER_SET,
   POST_TO_FILTER_SET,
   POST_SEARCH_FILTER_SET,
   getPosts,
-  getTags
-} from "../../actions";
+  addPost,
+  delPost
+} from "..";
 
 import fetchMock from "fetch-mock";
 import configureMockStore from "redux-mock-store";
@@ -22,44 +21,43 @@ describe(">>>A C T I O N --- Test simple actions", () => {
     const items = postsFetchDataSuccess([1, 2, 3, 4]);
     expect(items).toEqual({ type: POST_RESPONSE, items: [1, 2, 3, 4] });
   });
-  it("+++ actionCreator tagsFetchDataSuccess", () => {
-    const items = tagsFetchDataSuccess([1, 2, 3, 4]);
-    expect(items).toEqual({ type: TAG_RESPONSE, items: [1, 2, 3, 4] });
-  });
-});
-
-describe(">>>ACTION --- Test async tags actions", () => {
-  it("+++ actionCreate getTags", async () => {
-    fetchMock.reset();
-    fetchMock.get("*", [1, 2, 3, 4]);
-    const store = mockStore({
-      posts: []
-    });
-    await store.dispatch(getTags());
-    expect(store.getActions()[2]).toEqual({
-      type: TAG_RESPONSE,
-      items: [1, 2, 3, 4]
-    });
-  });
 });
 
 describe(">>>A C T I O N --- Test async posts actions", () => {
-  it("+++ actionCreator setPostsSearchFilter", async () => {
-    const store = mockStore({
-      postsFilters: { q: null }
+  let store;
+  beforeEach(() => {
+    fetchMock.reset();
+    store = mockStore({
+      posts: [],
+      postsFilters: { from: null, to: null }
     });
+  });
+
+  it("+++ actionCreator setPostsSearchFilter", async () => {
+    fetchMock.get("*", [1, 2, 3, 4]);
+
     await store.dispatch(setPostsSearchFilter("q"));
+
     expect(store.getActions()[0]).toEqual({
       type: POST_SEARCH_FILTER_SET,
       q: "q"
     });
+
+    await new Promise(resolve => {
+      setTimeout(resolve, 0);
+    });
+
+    expect(store.getActions()[3]).toEqual({
+      type: POST_RESPONSE,
+      items: [1, 2, 3, 4]
+    });
   });
   it("+++ actionCreator updatePostsFilter [from]", async () => {
-    const store = mockStore({
-      postsFilters: { from: null, to: null }
-    });
+    fetchMock.get("*", [1, 2, 3, 4]);
     const d = new Date();
+
     await store.dispatch(updatePostsFilter(d, null));
+
     expect(store.getActions()[0]).toEqual({
       type: POST_FROM_FILTER_SET,
       from: d
@@ -68,13 +66,22 @@ describe(">>>A C T I O N --- Test async posts actions", () => {
       type: POST_TO_FILTER_SET,
       to: null
     });
+
+    await new Promise(resolve => {
+      setTimeout(resolve, 0);
+    });
+
+    expect(store.getActions()[4]).toEqual({
+      type: POST_RESPONSE,
+      items: [1, 2, 3, 4]
+    });
   });
   it("+++ actionCreator updatePostsFilter [to]", async () => {
-    const store = mockStore({
-      postsFilters: { from: null, to: null }
-    });
+    fetchMock.get("*", [1, 2, 3, 4]);
     const d = new Date();
+
     await store.dispatch(updatePostsFilter(null, d));
+
     expect(store.getActions()[0]).toEqual({
       type: POST_FROM_FILTER_SET,
       from: null
@@ -83,15 +90,54 @@ describe(">>>A C T I O N --- Test async posts actions", () => {
       type: POST_TO_FILTER_SET,
       to: d
     });
+
+    await new Promise(resolve => {
+      setTimeout(resolve, 0);
+    });
+
+    expect(store.getActions()[4]).toEqual({
+      type: POST_RESPONSE,
+      items: [1, 2, 3, 4]
+    });
   });
   it("+++ actionCreator getPosts", async () => {
-    fetchMock.reset();
     fetchMock.get("*", [1, 2, 3, 4]);
-    const store = mockStore({
-      posts: []
-    });
+
     await store.dispatch(getPosts());
+
     expect(store.getActions()[2]).toEqual({
+      type: POST_RESPONSE,
+      items: [1, 2, 3, 4]
+    });
+  });
+
+  it("+++ actionCreator delPost", async () => {
+    fetchMock.deleteOnce("*", 204);
+    fetchMock.getOnce("*", [1, 2, 3, 4]);
+
+    await store.dispatch(delPost(1));
+
+    await new Promise(resolve => {
+      setTimeout(resolve, 0);
+    });
+
+    expect(store.getActions()[4]).toEqual({
+      type: POST_RESPONSE,
+      items: [1, 2, 3, 4]
+    });
+  });
+
+  it("+++ actionCreator addPost", async () => {
+    fetchMock.postOnce("*", 201);
+    fetchMock.getOnce("*", [1, 2, 3, 4]);
+
+    await store.dispatch(addPost(1, 2));
+
+    await new Promise(resolve => {
+      setTimeout(resolve, 0);
+    });
+
+    expect(store.getActions()[4]).toEqual({
       type: POST_RESPONSE,
       items: [1, 2, 3, 4]
     });

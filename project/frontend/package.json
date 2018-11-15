@@ -43,6 +43,12 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js, jsx}",
+      "!src/reducers/index.js"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -59,5 +65,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "jest-mock-console": "^0.4.0"
+  }
 }

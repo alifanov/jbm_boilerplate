@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { Card, Button, CardBody, CardText, CardHeader } from "reactstrap";
 import { FaTimesCircle } from "react-icons/fa";
 import Moment from "react-moment";
@@ -31,6 +33,11 @@ const Post = props => {
       </CardBody>
     </Card>
   );
+};
+
+Post.propTypes = {
+  content: PropTypes.object,
+  onDelete: PropTypes.func
 };
 
 export default Post;

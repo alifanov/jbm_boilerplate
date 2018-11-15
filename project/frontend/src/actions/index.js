@@ -52,8 +52,12 @@ export const reqWrapper = (...args) => {
     try {
       const response = await fetch(args[0], args[1] || {});
       dispatch(hideLoading());
-      const result =
-        response.statusText === "OK" ? await response.json() : null;
+      let result;
+      if ([201, 204].includes(response.status)) {
+        result = null;
+      } else {
+        result = await response.json();
+      }
       dispatch(args[2](result));
     } catch (e) {
       dispatch(hideLoading());
