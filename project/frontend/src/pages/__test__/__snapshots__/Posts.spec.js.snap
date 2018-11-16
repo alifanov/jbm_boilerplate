@@ -1,0 +1,268 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>>Posts --- Snapshot +++capturing 1`] = `
+<div>
+  <div
+    className="transparent p-0 jumbotron"
+  >
+    <a
+      href="#"
+      onClick={[Function]}
+    >
+      <h4>
+        New post
+      </h4>
+    </a>
+    <form
+      className="d-none"
+    >
+      <div
+        className="position-relative form-group"
+      >
+        <label
+          className=""
+          htmlFor="exampleTitle"
+        >
+          Title
+        </label>
+        <input
+          className="form-control"
+          id="exampleTitle"
+          name="title"
+          onChange={[Function]}
+          placeholder="Enter post title"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        className="position-relative form-group"
+      >
+        <label
+          className=""
+          htmlFor="exampleText"
+        >
+          Text Area
+        </label>
+        <textarea
+          className="form-control"
+          id="exampleText"
+          name="text"
+          onChange={[Function]}
+          placeholder="Enter post text"
+          value=""
+        />
+      </div>
+      <div
+        className="d-flex justify-content-end"
+      >
+        <button
+          aria-label={null}
+          className="btn btn-secondary btn-sm"
+          onClick={[Function]}
+          type="button"
+        >
+          Add new post
+        </button>
+      </div>
+    </form>
+  </div>
+  <div
+    className="d-flex flex-row mb-4 justify-content-between"
+  >
+    <h4>
+      Posts: 
+      1
+    </h4>
+    <div
+      className="input-group"
+      style={
+        Object {
+          "width": "50%",
+        }
+      }
+    >
+      <div
+        className="input-group-prepend"
+      >
+        <span
+          className="input-group-text"
+        >
+          🔍
+        </span>
+      </div>
+      <input
+        className="form-control"
+        onChange={[Function]}
+        placeholder="search"
+        type="text"
+      />
+    </div>
+    <div
+      className="react-bootstrap-daterangepicker-container"
+      style={
+        Object {
+          "display": "inline-block",
+        }
+      }
+    >
+      <button
+        aria-label={null}
+        className="btn btn-secondary"
+        onClick={[Function]}
+      >
+         
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          style={
+            Object {
+              "color": undefined,
+            }
+          }
+          viewBox="0 0 448 512"
+          width="1em"
+        >
+          <path
+            d="M12 192h424c6.6 0 12 5.4 12 12v260c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V204c0-6.6 5.4-12 12-12zm436-44v-36c0-26.5-21.5-48-48-48h-48V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H160V12c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v52H48C21.5 64 0 85.5 0 112v36c0 6.6 5.4 12 12 12h424c6.6 0 12-5.4 12-12z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div
+    className="mb-4 post-item card"
+  >
+    <div
+      className="d-flex justify-content-between card-header"
+    >
+      <div
+        className="d-flex align-items-center"
+      >
+        1
+      </div>
+      <svg
+        fill="currentColor"
+        height="1em"
+        onClick={[Function]}
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+            "cursor": "pointer",
+          }
+        }
+        viewBox="0 0 512 512"
+        width="1em"
+      >
+        <path
+          d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"
+        />
+      </svg>
+    </div>
+    <div
+      className="card-body"
+    >
+      <p
+        className="card-text"
+      >
+        11
+      </p>
+      <div
+        className="d-flex justify-content-between align-items-center"
+      >
+        <div
+          className="btn-group"
+        >
+          <button
+            aria-label={null}
+            className="btn btn-outline-secondary btn-sm"
+            onClick={[Function]}
+          >
+            Read
+          </button>
+        </div>
+        <small
+          className="text-muted"
+        >
+          Published: 
+          <time
+            dateTime={"2018-11-16T09:49:01.398Z"}
+          >
+            16.11.2018 12:49
+          </time>
+        </small>
+      </div>
+    </div>
+  </div>
+  <div
+    className="mb-4 post-item card"
+  >
+    <div
+      className="d-flex justify-content-between card-header"
+    >
+      <div
+        className="d-flex align-items-center"
+      >
+        2
+      </div>
+      <svg
+        fill="currentColor"
+        height="1em"
+        onClick={[Function]}
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+            "cursor": "pointer",
+          }
+        }
+        viewBox="0 0 512 512"
+        width="1em"
+      >
+        <path
+          d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"
+        />
+      </svg>
+    </div>
+    <div
+      className="card-body"
+    >
+      <p
+        className="card-text"
+      >
+        22
+      </p>
+      <div
+        className="d-flex justify-content-between align-items-center"
+      >
+        <div
+          className="btn-group"
+        >
+          <button
+            aria-label={null}
+            className="btn btn-outline-secondary btn-sm"
+            onClick={[Function]}
+          >
+            Read
+          </button>
+        </div>
+        <small
+          className="text-muted"
+        >
+          Published: 
+          <time
+            dateTime={"2018-11-16T09:49:01.399Z"}
+          >
+            16.11.2018 12:49
+          </time>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+`;

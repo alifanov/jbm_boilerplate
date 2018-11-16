@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>>PostForm --- Snapshot +++capturing 1`] = `
+<div
+  className="transparent p-0 jumbotron"
+>
+  <a
+    href="#"
+    onClick={[Function]}
+  >
+    <h4>
+      New post
+    </h4>
+  </a>
+  <form
+    className="d-none"
+  >
+    <div
+      className="position-relative form-group"
+    >
+      <label
+        className=""
+        htmlFor="exampleTitle"
+      >
+        Title
+      </label>
+      <input
+        className="form-control"
+        id="exampleTitle"
+        name="title"
+        onChange={[Function]}
+        placeholder="Enter post title"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="position-relative form-group"
+    >
+      <label
+        className=""
+        htmlFor="exampleText"
+      >
+        Text Area
+      </label>
+      <textarea
+        className="form-control"
+        id="exampleText"
+        name="text"
+        onChange={[Function]}
+        placeholder="Enter post text"
+        value=""
+      />
+    </div>
+    <div
+      className="d-flex justify-content-end"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-secondary btn-sm"
+        onClick={[Function]}
+        type="button"
+      >
+        Add new post
+      </button>
+    </div>
+  </form>
+</div>
+`;

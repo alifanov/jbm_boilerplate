@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>>TagForm --- Snapshot +++capturing 1`] = `
+<div
+  className="jumbotron"
+>
+  <h4>
+    New tag
+  </h4>
+  <form
+    className=""
+  >
+    <div
+      className="position-relative form-group"
+    >
+      <label
+        className=""
+        htmlFor="name"
+      >
+        Name
+      </label>
+      <input
+        className="form-control"
+        id="name"
+        name="name"
+        onChange={[Function]}
+        placeholder="Enter tag name"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="d-flex justify-content-end"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-secondary btn-sm"
+        onClick={[Function]}
+        type="button"
+      >
+        Add new post
+      </button>
+    </div>
+  </form>
+</div>
+`;

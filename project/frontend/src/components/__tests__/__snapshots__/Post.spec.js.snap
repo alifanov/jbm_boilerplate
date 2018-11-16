@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>>Post --- Snapshot +++capturing Snapshot of Post 1`] = `
+<div
+  className="mb-4 post-item card"
+>
+  <div
+    className="d-flex justify-content-between card-header"
+  >
+    <div
+      className="d-flex align-items-center"
+    >
+      Title1
+    </div>
+    <svg
+      fill="currentColor"
+      height="1em"
+      onClick={[Function]}
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
+          "cursor": "pointer",
+        }
+      }
+      viewBox="0 0 512 512"
+      width="1em"
+    >
+      <path
+        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"
+      />
+    </svg>
+  </div>
+  <div
+    className="card-body"
+  >
+    <p
+      className="card-text"
+    >
+      Text1
+    </p>
+    <div
+      className="d-flex justify-content-between align-items-center"
+    >
+      <div
+        className="btn-group"
+      >
+        <button
+          aria-label={null}
+          className="btn btn-outline-secondary btn-sm"
+          onClick={[Function]}
+        >
+          Read
+        </button>
+      </div>
+      <small
+        className="text-muted"
+      >
+        Published: 
+        <time
+          dateTime={"2018-02-01T08:11:11.011Z"}
+        >
+          01.02.2018 11:11
+        </time>
+      </small>
+    </div>
+  </div>
+</div>
+`;

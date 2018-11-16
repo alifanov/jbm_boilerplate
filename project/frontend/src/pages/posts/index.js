@@ -21,7 +21,7 @@ import {
 import { wsConnect } from "../../actions/websockets";
 import { postsCounterSelector, postsSelector } from "../../selectors";
 
-class PostList extends Component {
+export class PostList extends Component {
   componentDidMount() {
     this.props.getPosts();
     this.props.wsConnect();

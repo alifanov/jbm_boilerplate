@@ -9,7 +9,7 @@ import { bindActionCreators } from "redux";
 import Tag from "../../components/tag";
 import TagForm from "../../components/forms/tag";
 
-class TagList extends Component {
+export class TagList extends Component {
   componentDidMount() {
     this.props.getTags();
     this.props.wsConnect();
