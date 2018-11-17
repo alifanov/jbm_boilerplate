@@ -5,7 +5,7 @@ import { createFilter } from "redux-persist-transform-filter";
 import { persistReducer, persistStore } from "redux-persist";
 import { routerMiddleware } from "react-router-redux";
 
-// import thunk from "redux-thunk";
+import thunk from "redux-thunk";
 import rootReducer from "./reducers";
 import { wsMiddleware, notificationMiddleware } from "./middlewares";
 
@@ -51,7 +51,12 @@ export default () => {
     reducer,
     {},
     compose(
-      applyMiddleware(apiMiddleware, wsMiddleware, notificationMiddleware),
+      applyMiddleware(
+        thunk,
+        apiMiddleware,
+        wsMiddleware,
+        notificationMiddleware
+      ),
       ...enhancers
     )
   );

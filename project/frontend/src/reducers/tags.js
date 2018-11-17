@@ -1,10 +1,10 @@
-import { TAGS_SUCCESS } from "../actions/tags";
+import { GET_TAGS_SUCCESS } from "../actions/tags";
 
 const initialState = { tags: [] };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case TAGS_SUCCESS:
+    case GET_TAGS_SUCCESS:
       return { tags: action.payload };
 
     default:

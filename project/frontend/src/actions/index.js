@@ -5,8 +5,6 @@ export const POST_FROM_FILTER_SET = "posts/FROM_FILTER_SET";
 export const POST_TO_FILTER_SET = "posts/TO_FILTER_SET";
 export const POST_SEARCH_FILTER_SET = "posts/SEARCH_FILTER_SET";
 
-export const TAG_RESPONSE = "tags/RESPONSE";
-
 export function postsFetchDataSuccess(items) {
   return {
     type: POST_RESPONSE,
@@ -36,13 +34,6 @@ export function updatePostsFilter(from, to) {
       to
     });
     dispatch(getPosts(from, to));
-  };
-}
-
-export function tagsFetchDataSuccess(items) {
-  return {
-    type: TAG_RESPONSE,
-    items
   };
 }
 
@@ -102,41 +93,5 @@ export const addPost = (title, text) => {
       body: JSON.stringify({ title: title, text: text })
     },
     _ => getPosts()
-  );
-};
-
-export const getTags = () => {
-  let url = "http://localhost:8000/api/tags/";
-  return reqWrapper(url, {}, res => tagsFetchDataSuccess(res));
-};
-
-export const delTag = id => {
-  let url = `http://localhost:8000/api/tags/${id}/`;
-  return reqWrapper(
-    url,
-    {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    },
-    _ => getTags()
-  );
-};
-
-export const addTag = name => {
-  let url = `http://localhost:8000/api/tags/`;
-  return reqWrapper(
-    url,
-    {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ name })
-    },
-    _ => getTags()
   );
 };

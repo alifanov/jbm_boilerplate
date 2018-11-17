@@ -41,7 +41,6 @@ export const notificationMiddleware = store => next => action => {
   switch (action.type) {
     case "WEBSOCKET:MESSAGE":
       let data = JSON.parse(action.payload.data);
-      // console.log(data);
       store.dispatch(
         notifSend({
           kind: "success",
