@@ -17,13 +17,13 @@ import {
   delPost,
   updatePostsFilter,
   setPostsSearchFilter
-} from "../../actions/index";
+} from "../../actions/posts";
 import { wsConnect } from "../../actions/websockets";
 import { postsCounterSelector, postsSelector } from "../../selectors";
 
 export class PostList extends Component {
   componentDidMount() {
-    // this.props.getPosts();
+    this.props.getPosts();
     this.props.wsConnect();
   }
 
@@ -96,7 +96,11 @@ const mapDispatchToProps = dispatch =>
 const mapStateToProps = state => ({
   posts: postsSelector(state),
   postsCounter: postsCounterSelector(state),
-  filters: state.postsReducer.postsFilters
+  filters: {
+    from: state.postsReducer.from,
+    to: state.postsReducer.to,
+    q: state.postsReducer.q
+  }
 });
 
 export default connect(

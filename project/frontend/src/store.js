@@ -1,5 +1,4 @@
 import storage from "redux-persist/es/storage";
-import { apiMiddleware } from "redux-api-middleware";
 import { createStore, applyMiddleware, compose } from "redux";
 import { createFilter } from "redux-persist-transform-filter";
 import { persistReducer, persistStore } from "redux-persist";
@@ -7,9 +6,13 @@ import { routerMiddleware } from "react-router-redux";
 
 import thunk from "redux-thunk";
 import rootReducer from "./reducers";
-import { wsMiddleware, notificationMiddleware } from "./middlewares";
+import {
+  jwtApiMiddleware,
+  wsMiddleware,
+  notificationMiddleware
+} from "./middlewares";
 
-const initialState = {};
+// const initialState = {};
 // const middleware = [thunk, wsMiddleware, notificationMiddleware];
 
 // if (process.env.NODE_ENV === "development") {
@@ -53,7 +56,7 @@ export default () => {
     compose(
       applyMiddleware(
         thunk,
-        apiMiddleware,
+        jwtApiMiddleware,
         wsMiddleware,
         notificationMiddleware
       ),

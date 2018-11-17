@@ -1,23 +1,21 @@
 import {
-  POST_RESPONSE,
+  GET_POSTS_SUCCESS,
   POST_FROM_FILTER_SET,
   POST_TO_FILTER_SET,
   POST_SEARCH_FILTER_SET
-} from "../actions/index";
+} from "../actions/posts";
 
 const initialState = {
   posts: [],
-  postsFilters: {
-    from: null,
-    to: null,
-    q: null
-  }
+  from: null,
+  to: null,
+  q: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case POST_RESPONSE:
-      return { ...state, posts: action.items };
+    case GET_POSTS_SUCCESS:
+      return { ...state, posts: action.payload };
     case POST_FROM_FILTER_SET:
       return { ...state, from: action.from };
     case POST_TO_FILTER_SET:
