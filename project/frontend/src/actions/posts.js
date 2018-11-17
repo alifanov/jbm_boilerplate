@@ -15,7 +15,7 @@ export const POST_SEARCH_FILTER_SET = "@@posts/POST_SEARCH_FILTER_SET";
 export const POST_FROM_FILTER_SET = "@@posts/POST_FROM_FILTER_SET";
 export const POST_TO_FILTER_SET = "@@posts/POST_TO_FILTER_SET";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const preprocessFilters = (from, to, q) => {
   const _from = from && from.toISOString();

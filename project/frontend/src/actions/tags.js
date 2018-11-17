@@ -9,7 +9,9 @@ export const DEL_TAG_FAILURE = "@@tags/DEL_TAG_FAILURE";
 export const ADD_TAG_REQUEST = "@@tags/ADD_TAG_REQUEST";
 export const ADD_TAG_SUCCESS = "@@tags/ADD_TAG_SUCCESS";
 export const ADD_TAG_FAILURE = "@@tags/ADD_TAG_FAILURE";
-const BASE_URL = "http://localhost:8000";
+
+const BASE_URL = process.env.REACT_APP_API_URL;
+
 export const getTags = () => dispatch => {
   dispatch({
     [RSAA]: {

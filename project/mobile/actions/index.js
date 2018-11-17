@@ -20,7 +20,6 @@ export const postsFetchDataSuccess = items => {
 };
 
 export const getPosts = () => {
-  let url =
-    "http://ec2-34-253-212-186.eu-west-1.compute.amazonaws.com/api/posts/";
+  let url = process.env.REACT_APP_API_URL + "/api/posts/";
   return reqWrapper(url, {}, items => postsFetchDataSuccess(items));
 };

@@ -5,7 +5,9 @@ export const LOGIN_FAILURE = "@@auth/LOGIN_FAILURE";
 export const TOKEN_REQUEST = "@@auth/TOKEN_REQUEST";
 export const TOKEN_RECEIVED = "@@auth/TOKEN_RECEIVED";
 export const TOKEN_FAILURE = "@@auth/TOKEN_FAILURE";
-const BASE_URL = "http://localhost:8000";
+
+const BASE_URL = process.env.REACT_APP_API_URL;
+
 export const login = (username, password) => ({
   [RSAA]: {
     endpoint: BASE_URL + "/api/auth/token/obtain/",

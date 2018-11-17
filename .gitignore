@@ -244,3 +244,6 @@ project/vision/pretrained_models/weights.28-3.73.hdf5
 project/uploads/my.jpg
 project/mobile/yarn.lock
 .vscode/settings.json
+project/frontend/.env.production
+project/mobile/.env.production
+project/mobile/.expo

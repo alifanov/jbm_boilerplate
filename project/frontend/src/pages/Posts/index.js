@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import { Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
 
-import { FaCalendar, FaSearch } from "react-icons/fa";
+import { FaCalendar } from "react-icons/fa";
 
 import Post from "../../components/post";
 import PostForm from "../../components/forms/post";
