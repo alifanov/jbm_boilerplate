@@ -20,9 +20,9 @@ const Header = props => {
           Page #4
         </a>
       </nav>
-      <a className="btn btn-outline-primary" href="#">
-        Sign up
-      </a>
+      <Link className="btn btn-outline-primary" to={"/login/"}>
+        Login
+      </Link>
     </div>
   );
 };

@@ -23,7 +23,7 @@ import { postsCounterSelector, postsSelector } from "../../selectors";
 
 export class PostList extends Component {
   componentDidMount() {
-    this.props.getPosts();
+    // this.props.getPosts();
     this.props.wsConnect();
   }
 

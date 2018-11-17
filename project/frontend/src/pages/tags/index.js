@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { addTag, getTags, delTag } from "../../actions/index";
+import { addTag, delTag } from "../../actions/index";
+import { getTags } from "../../actions/tags";
 import { wsConnect } from "../../actions/websockets";
 import { tagsCounterSelector, tagsSelector } from "../../selectors";
 import { bindActionCreators } from "redux";

@@ -1,8 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import store from "./store";
+import configureStore from "./store";
 import App from "./App";
+// import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,6 +14,8 @@ import momentLocalizer from "react-widgets-moment";
 
 Moment.locale("en");
 momentLocalizer();
+
+const store = configureStore();
 
 const target = document.querySelector("#root");
 

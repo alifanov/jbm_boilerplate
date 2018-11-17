@@ -1,8 +1,4 @@
-export function wsConnect(url = "ws://localhost:8000/ws/notifications/") {
-  return dispatch => {
-    dispatch({
-      type: "WEBSOCKET:CONNECT",
-      payload: { url }
-    });
-  };
-}
+export const wsConnect = (url = "ws://localhost:8000/ws/notifications/") => ({
+  type: "WEBSOCKET:CONNECT",
+  payload: { url }
+});
