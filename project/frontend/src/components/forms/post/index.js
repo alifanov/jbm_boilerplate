@@ -5,12 +5,25 @@ import PropTypes from "prop-types";
 
 import { Button, Form, FormGroup, Input, Label, Jumbotron } from "reactstrap";
 
+import TagsInput from "../../TagsInput";
+
 class PostForm extends Component {
   state = {
     title: "",
     text: "",
-    show: false
+    show: false,
+    tags: []
   };
+  onTagDel(i) {
+    const tags = this.state.tags.slice(0);
+    tags.splice(i, 1);
+    this.setState({ tags });
+  }
+
+  onTagAdd(tag) {
+    const tags = [].concat(this.state.tags, tag);
+    this.setState({ tags });
+  }
   render() {
     return (
       <Jumbotron className={this.state.show ? "" : "transparent p-0"}>
@@ -40,12 +53,37 @@ class PostForm extends Component {
               placeholder={"Enter post text"}
             />
           </FormGroup>
+          <FormGroup>
+            <TagsInput
+              suggestions={[
+                {
+                  id: 1,
+                  name: "python"
+                },
+                {
+                  id: 2,
+                  name: "react"
+                },
+                {
+                  id: 3,
+                  name: "redux"
+                }
+              ]}
+              tags={this.state.tags}
+              onAdd={this.onTagAdd.bind(this)}
+              onDel={this.onTagDel.bind(this)}
+            />
+          </FormGroup>
           <div className="d-flex justify-content-end">
             <Button
               color={"secondary"}
               size={"sm"}
               onClick={() => {
-                this.props.onSubmit(this.state.title, this.state.text);
+                this.props.onSubmit(
+                  this.state.title,
+                  this.state.text,
+                  this.state.tags.map(t => t.id)
+                );
                 this.setState({ title: "", text: "" });
               }}
             >

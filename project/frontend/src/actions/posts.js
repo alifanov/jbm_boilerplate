@@ -56,12 +56,13 @@ export const delPost = id => dispatch => {
     }
   });
 };
-export const addPost = (title, text) => dispatch => {
+export const addPost = (title, text, tags) => dispatch => {
+  console.log(tags);
   dispatch({
     [RSAA]: {
       endpoint: BASE_URL + "/api/posts/",
       method: "POST",
-      body: JSON.stringify({ title, text }),
+      body: JSON.stringify({ title, text, tags }),
       headers: withAuth({ "Content-Type": "application/json" }),
       types: [
         ADD_POST_REQUEST,

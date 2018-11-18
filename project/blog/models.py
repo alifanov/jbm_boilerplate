@@ -37,22 +37,22 @@ def send_msg_to_ws(text):
 
 
 @receiver(models.signals.post_save, sender=Post, weak=False)
-def created_handler(sender, instance, created, *args, **kwargs):
+def post_created_handler(sender, instance, created, *args, **kwargs):
     if created:
         send_msg_to_ws("New post created")
 
 
 @receiver(models.signals.post_delete, sender=Post, weak=False)
-def created_handler(sender, instance, *args, **kwargs):
+def post_removed_handler(sender, instance, *args, **kwargs):
     send_msg_to_ws("Post deleted")
 
 
 @receiver(models.signals.post_save, sender=Tag, weak=False)
-def created_handler(sender, instance, created, *args, **kwargs):
+def tag_created_handler(sender, instance, created, *args, **kwargs):
     if created:
         send_msg_to_ws("New tag created")
 
 
 @receiver(models.signals.post_delete, sender=Tag, weak=False)
-def created_handler(sender, instance, *args, **kwargs):
+def tag_removed_handler(sender, instance, *args, **kwargs):
     send_msg_to_ws("Tag deleted")

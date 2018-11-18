@@ -38,7 +38,11 @@ export class PostList extends Component {
     }
     return (
       <div>
-        <PostForm onSubmit={(title, text) => this.props.addPost(title, text)} />
+        <PostForm
+          onSubmit={(title, text, tags) =>
+            this.props.addPost(title, text, tags)
+          }
+        />
         <div className={"d-flex flex-row mb-4 justify-content-between"}>
           <h4>Posts: {postsCounter}</h4>
           <InputGroup
@@ -73,7 +77,7 @@ export class PostList extends Component {
           </DateRangePicker>
         </div>
         {posts.map((p, i) => (
-          <Post key={i} content={p} onDelete={this.props.delPost} />
+          <Post key={i} onDelete={this.props.delPost} {...p} />
         ))}
       </div>
     );
