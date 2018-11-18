@@ -1,6 +1,5 @@
 import {
-  postsFetchDataSuccess,
-  POST_RESPONSE,
+  GET_POSTS_SUCCESS,
   setPostsSearchFilter,
   updatePostsFilter,
   POST_FROM_FILTER_SET,
@@ -9,19 +8,12 @@ import {
   getPosts,
   addPost,
   delPost
-} from "..";
+} from "../posts";
 
 import fetchMock from "fetch-mock";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 const mockStore = configureMockStore([thunk]);
-
-describe(">>>A C T I O N --- Test simple actions", () => {
-  it("+++ actionCreator postsFetchDataSuccess", () => {
-    const items = postsFetchDataSuccess([1, 2, 3, 4]);
-    expect(items).toEqual({ type: POST_RESPONSE, items: [1, 2, 3, 4] });
-  });
-});
 
 describe(">>>A C T I O N --- Test async posts actions", () => {
   let store;
@@ -48,8 +40,8 @@ describe(">>>A C T I O N --- Test async posts actions", () => {
     });
 
     expect(store.getActions()[3]).toEqual({
-      type: POST_RESPONSE,
-      items: [1, 2, 3, 4]
+      type: GET_POSTS_SUCCESS,
+      payload: [1, 2, 3, 4]
     });
   });
   it("+++ actionCreator updatePostsFilter [from]", async () => {
@@ -72,8 +64,8 @@ describe(">>>A C T I O N --- Test async posts actions", () => {
     });
 
     expect(store.getActions()[4]).toEqual({
-      type: POST_RESPONSE,
-      items: [1, 2, 3, 4]
+      type: GET_POSTS_SUCCESS,
+      payload: [1, 2, 3, 4]
     });
   });
   it("+++ actionCreator updatePostsFilter [to]", async () => {
@@ -96,8 +88,8 @@ describe(">>>A C T I O N --- Test async posts actions", () => {
     });
 
     expect(store.getActions()[4]).toEqual({
-      type: POST_RESPONSE,
-      items: [1, 2, 3, 4]
+      type: GET_POSTS_SUCCESS,
+      payload: [1, 2, 3, 4]
     });
   });
   it("+++ actionCreator getPosts", async () => {
@@ -106,8 +98,8 @@ describe(">>>A C T I O N --- Test async posts actions", () => {
     await store.dispatch(getPosts());
 
     expect(store.getActions()[2]).toEqual({
-      type: POST_RESPONSE,
-      items: [1, 2, 3, 4]
+      type: GET_POSTS_SUCCESS,
+      payload: [1, 2, 3, 4]
     });
   });
 
@@ -122,8 +114,8 @@ describe(">>>A C T I O N --- Test async posts actions", () => {
     });
 
     expect(store.getActions()[4]).toEqual({
-      type: POST_RESPONSE,
-      items: [1, 2, 3, 4]
+      type: GET_POSTS_SUCCESS,
+      payload: [1, 2, 3, 4]
     });
   });
 
@@ -138,8 +130,8 @@ describe(">>>A C T I O N --- Test async posts actions", () => {
     });
 
     expect(store.getActions()[4]).toEqual({
-      type: POST_RESPONSE,
-      items: [1, 2, 3, 4]
+      type: GET_POSTS_SUCCESS,
+      payload: [1, 2, 3, 4]
     });
   });
 });

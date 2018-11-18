@@ -1,5 +1,5 @@
 import React from "react";
-import PostForm from "../forms/post";
+import PostForm from "../forms/Post";
 
 import { shallow, mount } from "../../enzyme";
 import { MemoryRouter } from "react-router-dom";

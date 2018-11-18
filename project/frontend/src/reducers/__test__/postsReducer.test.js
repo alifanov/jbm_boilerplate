@@ -1,10 +1,10 @@
 import postsReducer from "../posts";
 import {
+  GET_POSTS_SUCCESS,
   POST_FROM_FILTER_SET,
-  POST_RESPONSE,
   POST_SEARCH_FILTER_SET,
   POST_TO_FILTER_SET
-} from "../../actions";
+} from "../../actions/posts";
 
 describe(">>>R E D U C E R --- Test postsReducers", () => {
   it("+++ reducer for UNKNOWN ACTION", () => {
@@ -16,9 +16,12 @@ describe(">>>R E D U C E R --- Test postsReducers", () => {
     expect(state).toEqual({ posts: [1] });
   });
 
-  it("+++ reducer for " + POST_RESPONSE, () => {
+  it("+++ reducer for " + GET_POSTS_SUCCESS, () => {
     let state = { posts: [] };
-    state = postsReducer(state, { type: POST_RESPONSE, items: [1, 2, 3, 4] });
+    state = postsReducer(state, {
+      type: GET_POSTS_SUCCESS,
+      payload: [1, 2, 3, 4]
+    });
     expect(state).toEqual({ posts: [1, 2, 3, 4] });
   });
 

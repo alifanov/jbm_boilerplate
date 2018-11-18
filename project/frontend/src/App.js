@@ -2,7 +2,7 @@ import React from "react";
 import PostList from "./pages/Posts";
 import TagList from "./pages/Tags";
 import Header from "./components/Header";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 import LoadingBar from "react-redux-loading-bar";
 import PrivateRoute from "./pages/PrivateRoute";
 import Login from "./pages/Login";

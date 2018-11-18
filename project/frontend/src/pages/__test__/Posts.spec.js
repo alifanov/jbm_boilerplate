@@ -1,5 +1,5 @@
 import React from "react";
-import Posts, { PostList } from "../posts";
+import Posts, { PostList } from "../Posts";
 import configureStore from "redux-mock-store";
 import { shallow } from "../../enzyme";
 import { MemoryRouter } from "react-router-dom";

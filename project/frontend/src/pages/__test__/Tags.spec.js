@@ -1,5 +1,5 @@
 import React from "react";
-import Tags, { TagList } from "../tags";
+import Tags, { TagList } from "../Tags";
 import configureStore from "redux-mock-store";
 import { shallow } from "../../enzyme";
 import { MemoryRouter } from "react-router-dom";

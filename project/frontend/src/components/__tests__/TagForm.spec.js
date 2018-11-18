@@ -1,5 +1,5 @@
 import React from "react";
-import TagForm from "../forms/tag";
+import TagForm from "../forms/Tag";
 
 import { shallow, mount } from "../../enzyme";
 import { MemoryRouter } from "react-router-dom";

@@ -6,8 +6,8 @@ import { wsConnect } from "../../actions/websockets";
 import { tagsCounterSelector, tagsSelector } from "../../selectors";
 import { bindActionCreators } from "redux";
 
-import Tag from "../../components/tag";
-import TagForm from "../../components/forms/tag";
+import Tag from "../../components/Tag";
+import TagForm from "../../components/forms/Tag";
 
 export class TagList extends Component {
   componentDidMount() {

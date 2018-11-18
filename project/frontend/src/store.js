@@ -2,7 +2,7 @@ import storage from "redux-persist/es/storage";
 import { createStore, applyMiddleware, compose } from "redux";
 import { createFilter } from "redux-persist-transform-filter";
 import { persistReducer, persistStore } from "redux-persist";
-import { routerMiddleware } from "react-router-redux";
+// import { routerMiddleware } from "react-router-redux";
 
 import thunk from "redux-thunk";
 import rootReducer from "./reducers";

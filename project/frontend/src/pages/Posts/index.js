@@ -9,8 +9,8 @@ import { Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
 
 import { FaCalendar } from "react-icons/fa";
 
-import Post from "../../components/post";
-import PostForm from "../../components/forms/post";
+import Post from "../../components/Post";
+import PostForm from "../../components/forms/Post";
 import {
   getPosts,
   addPost,

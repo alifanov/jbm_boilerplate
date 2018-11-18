@@ -1,5 +1,5 @@
 import React from "react";
-import Tag from "../tag";
+import Tag from "../Tag";
 
 import { shallow, mount } from "../../enzyme";
 import { MemoryRouter } from "react-router-dom";
