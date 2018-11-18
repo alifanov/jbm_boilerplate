@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import (Post, Tag)
+from .models import Post, Tag
 
 
 # class TagSerializer(serializers.ModelSerializer):
@@ -9,8 +9,10 @@ from .models import (Post, Tag)
 
 
 class PostSerializer(serializers.ModelSerializer):
-    # tags = TagSerializer(many=True, read_only=True)
+    tags = serializers.PrimaryKeyRelatedField(
+        many=True, read_only=False, queryset=Tag.objects.all()
+    )
 
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = "__all__"

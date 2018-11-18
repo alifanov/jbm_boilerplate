@@ -17,7 +17,7 @@ class Tag(models.Model):
     name = models.CharField(max_length=30)
 
     class Meta:
-        ordering = ['name']
+        ordering = ["name"]
 
 
 class Post(TimeItem):
@@ -26,37 +26,33 @@ class Post(TimeItem):
     tags = models.ManyToManyField(Tag, blank=True)
 
     class Meta:
-        ordering = ['-updated_at']
+        ordering = ["-updated_at"]
 
 
 def send_msg_to_ws(text):
-    print('Sending data...')
     layer = get_channel_layer()
-    async_to_sync(layer.group_send)('notifications', {
-        'type': 'receive.json',
-        'content': {
-            'msg': text
-        }
-    })
+    async_to_sync(layer.group_send)(
+        "notifications", {"type": "receive.json", "content": {"msg": text}}
+    )
 
 
 @receiver(models.signals.post_save, sender=Post, weak=False)
 def created_handler(sender, instance, created, *args, **kwargs):
     if created:
-        send_msg_to_ws('New post created')
+        send_msg_to_ws("New post created")
 
 
 @receiver(models.signals.post_delete, sender=Post, weak=False)
 def created_handler(sender, instance, *args, **kwargs):
-    send_msg_to_ws('Post deleted')
+    send_msg_to_ws("Post deleted")
 
 
 @receiver(models.signals.post_save, sender=Tag, weak=False)
 def created_handler(sender, instance, created, *args, **kwargs):
     if created:
-        send_msg_to_ws('New tag created')
+        send_msg_to_ws("New tag created")
 
 
 @receiver(models.signals.post_delete, sender=Tag, weak=False)
 def created_handler(sender, instance, *args, **kwargs):
-    send_msg_to_ws('Tag deleted')
+    send_msg_to_ws("Tag deleted")
