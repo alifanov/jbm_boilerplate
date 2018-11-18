@@ -239,6 +239,7 @@ typings/
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 /project/.elasticbeanstalk/
+/project/.ebextensions/
 /project/jbm-backend-task-def.json
 project/vision/pretrained_models/weights.28-3.73.hdf5
 project/uploads/my.jpg
