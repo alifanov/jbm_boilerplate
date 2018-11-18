@@ -1,6 +1,6 @@
 # JBM django project
 
-Django project with API creatd with django-rest-framework.
+Django project with API created with django-rest-framework.
 Run locally:
 
 ```
