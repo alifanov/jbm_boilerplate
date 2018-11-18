@@ -1,4 +1,4 @@
-# Jetbootsmaker vision
+# JBM vision
 
 Simple predefined model for face age prediction.
 

@@ -1,4 +1,4 @@
-# Jetbootsmaker frontend
+# JBM frontend
 
 React/Redux application for working with django API
 

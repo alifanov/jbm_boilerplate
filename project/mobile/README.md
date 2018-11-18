@@ -1,4 +1,4 @@
-# Jetbootsmaker mobile
+# JBM mobile
 
 Example React native application via expo.io
 
