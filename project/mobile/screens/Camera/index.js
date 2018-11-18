@@ -51,8 +51,7 @@ export default class CameraScreen extends React.Component {
   }
   async snap() {
     if (this.camera) {
-      const baseUrl =
-        "http://ec2-34-253-212-186.eu-west-1.compute.amazonaws.com";
+      const baseUrl = process.env.REACT_APP_API_URL;
       let photo = await this.camera.takePictureAsync();
 
       let localUri = photo.uri;

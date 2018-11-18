@@ -8,7 +8,6 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 
 
-# Create your tests here.
 class CreationPostTestCase(TestCase):
     TEST_TITLE = "Title #1"
     TEST_TEXT = "Text #1"

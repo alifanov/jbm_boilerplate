@@ -11,8 +11,8 @@ from .model import Model
 
 @csrf_exempt
 def simple_upload(request):
-    if request.method == 'POST' and request.FILES['photo']:
-        photo = request.FILES['photo']
+    if request.method == "POST" and request.FILES["photo"]:
+        photo = request.FILES["photo"]
         file_content = ContentFile(photo.read())
         im = Image.open(file_content)
 
@@ -20,9 +20,6 @@ def simple_upload(request):
         im = im.transpose(Image.FLIP_LEFT_RIGHT)
         model = Model()
         rim = model.predict(im)
-        # response = HttpResponse(content_type="image/jpeg")
-        # rim.save(response, "JPEG")
-        # return response
-        rim.save(os.path.join('uploads', 'my.jpg'), 'JPEG')
-        return HttpResponse('/static/my.jpg')
-    return HttpResponse('Uploaded')
+        rim.save(os.path.join("uploads", "my.jpg"), "JPEG")
+        return HttpResponse("/static/my.jpg")
+    return HttpResponse("Uploaded")
