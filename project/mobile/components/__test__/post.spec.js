@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { shallow } from "../../enzyme";
-import Post from "../post";
+import Post from "../Post";
 
 import renderer from "react-test-renderer";
 
