@@ -1,66 +1,114 @@
-import { GET_TAGS_SUCCESS, delTag, getTags, addTag } from "../tags";
+import {
+  GET_TAGS_SUCCESS,
+  ADD_TAG_REQUEST,
+  ADD_TAG_SUCCESS,
+  DEL_TAG_SUCCESS,
+  delTag,
+  getTags,
+  addTag,
+  GET_TAGS_REQUEST,
+  GET_TAGS_FAILURE,
+  DEL_TAG_REQUEST
+} from "../tags";
 
-import mockConsole from "jest-mock-console";
-import fetchMock from "fetch-mock";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import { apiMiddleware } from "redux-api-middleware";
-const mockStore = configureMockStore([thunk]);
+import { apiMiddleware, RequestError } from "redux-api-middleware";
+const mockStore = configureMockStore([thunk, apiMiddleware]);
 
 describe(">>>ACTION --- Test async tags actions", () => {
   let store;
+  const tagsData = JSON.stringify([1, 2, 3, 4]);
   beforeEach(() => {
-    fetchMock.reset();
+    fetch.resetMocks();
     store = mockStore({
-      tags: []
+      auth: {
+        access: { token: "token" },
+        refresh: {
+          token: "token"
+        },
+        errors: {}
+      }
     });
   });
 
   it("+++ actionCreate getTags", async () => {
-    fetchMock.getOnce("*", [1, 2, 3, 4]);
-    await store.dispatch(dispatch => ({
-      type: GET_TAGS_SUCCESS,
-      payload: [1, 2]
-    }));
-    console.log("Actions:", store.getActions());
-    expect(store.getActions()[0]).toEqual({
-      type: GET_TAGS_SUCCESS,
-      payload: [1, 2, 3, 4]
+    fetch.mockResponse(tagsData, {
+      status: 200,
+      headers: { "content-type": "application/json" }
     });
+    await store.dispatch(getTags());
+    const expectedActions = [
+      {
+        type: GET_TAGS_REQUEST
+      },
+      {
+        type: GET_TAGS_SUCCESS,
+        payload: [1, 2, 3, 4]
+      }
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
-  // it("+++ actionCreate getTags [with error]", async () => {
-  //   fetchMock.reset();
-  //   fetchMock.getOnce("*", 400);
-  //   const originConsole = mockConsole();
-  //   await store.dispatch(getTags());
-  //   await new Promise(resolve => {
-  //     setTimeout(resolve, 0);
-  //   });
-  //   expect(console.error).toHaveBeenCalled();
-  //   originConsole();
-  // });
-  // it("+++ actionCreate delTag", async () => {
-  //   fetchMock.deleteOnce("*", 204);
-  //   fetchMock.getOnce("*", [1, 2, 3, 4]);
-  //   await store.dispatch(delTag(1));
-  //   await new Promise(resolve => {
-  //     setTimeout(resolve, 0);
-  //   });
-  //   expect(store.getActions()[4]).toEqual({
-  //     type: GET_TAGS_SUCCESS,
-  //     payload: [1, 2, 3, 4]
-  //   });
-  // });
-  // it("+++ actionCreate addTag", async () => {
-  //   fetchMock.postOnce("*", 201);
-  //   fetchMock.getOnce("*", [1, 2, 3, 4]);
-  //   await store.dispatch(addTag("new"));
-  //   await new Promise(resolve => {
-  //     setTimeout(resolve, 0);
-  //   });
-  //   expect(store.getActions()[4]).toEqual({
-  //     type: GET_TAGS_SUCCESS,
-  //     payload: [1, 2, 3, 4]
-  //   });
-  // });
+  it("+++ actionCreate getTags [with error]", async () => {
+    fetch.mockRejectOnce(new RequestError("bad descriptor"));
+    await store.dispatch(getTags());
+    const expectedActions = [
+      {
+        type: GET_TAGS_REQUEST
+      },
+      {
+        type: GET_TAGS_FAILURE,
+        error: true,
+        meta: undefined,
+        payload: new RequestError("bad descriptor")
+      }
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+  it("+++ actionCreate delTag", async () => {
+    fetch.mockResponseOnce(null, { status: 204 }).mockResponseOnce(tagsData, {
+      status: 200,
+      headers: { "content-type": "application/json" }
+    });
+    await store.dispatch(delTag(1));
+    const expectedActions = [
+      {
+        type: DEL_TAG_REQUEST
+      },
+      {
+        type: DEL_TAG_SUCCESS
+      },
+      {
+        type: GET_TAGS_REQUEST
+      },
+      {
+        type: GET_TAGS_SUCCESS,
+        payload: [1, 2, 3, 4]
+      }
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+  it("+++ actionCreate addTag", async () => {
+    fetch.mockResponseOnce("{}", { status: 201 }).mockResponseOnce(tagsData, {
+      status: 200,
+      headers: { "content-type": "application/json" }
+    });
+    await store.dispatch(addTag("new"));
+    const expectedActions = [
+      {
+        type: ADD_TAG_REQUEST
+      },
+      {
+        type: ADD_TAG_SUCCESS
+      },
+      {
+        type: GET_TAGS_REQUEST
+      },
+      {
+        type: GET_TAGS_SUCCESS,
+        payload: [1, 2, 3, 4]
+      }
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
+  });
 });

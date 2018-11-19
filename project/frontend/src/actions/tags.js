@@ -1,4 +1,4 @@
-import { RSAA } from "redux-api-middleware";
+import { RSAA, RequestError } from "redux-api-middleware";
 import { withAuth } from "../reducers";
 export const GET_TAGS_REQUEST = "@@tags/GET_TAGS_REQUEST";
 export const GET_TAGS_SUCCESS = "@@tags/GET_TAGS_SUCCESS";
@@ -12,7 +12,7 @@ export const ADD_TAG_FAILURE = "@@tags/ADD_TAG_FAILURE";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-export const getTags = () => dispatch => {
+export const getTags = () => dispatch =>
   dispatch({
     [RSAA]: {
       endpoint: BASE_URL + "/api/tags/",
@@ -21,46 +21,32 @@ export const getTags = () => dispatch => {
       types: [GET_TAGS_REQUEST, GET_TAGS_SUCCESS, GET_TAGS_FAILURE]
     }
   });
-};
-export const delTag = id => dispatch => {
-  dispatch({
+export const delTag = id => async (dispatch, getState) => {
+  const actionResponse = await dispatch({
     [RSAA]: {
       endpoint: BASE_URL + "/api/tags/" + id + "/",
       method: "DELETE",
       headers: withAuth({ "Content-Type": "application/json" }),
-      types: [
-        DEL_TAG_REQUEST,
-        {
-          type: DEL_TAG_SUCCESS,
-          payload: (action, state, res) => {
-            dispatch(getTags());
-          }
-        },
-        DEL_TAG_FAILURE
-      ]
+      types: [DEL_TAG_REQUEST, DEL_TAG_SUCCESS, DEL_TAG_FAILURE]
     }
   });
+  if (actionResponse.error) {
+    throw new RequestError(actionResponse.error);
+  }
+  return await dispatch(getTags());
 };
-export const addTag = name => dispatch => {
-  dispatch({
+export const addTag = name => async (dispatch, getState) => {
+  const actionResponse = await dispatch({
     [RSAA]: {
       endpoint: BASE_URL + "/api/tags/",
       method: "POST",
       body: JSON.stringify({ name }),
       headers: withAuth({ "Content-Type": "application/json" }),
-      types: [
-        ADD_TAG_REQUEST,
-        {
-          type: ADD_TAG_SUCCESS,
-          payload: (action, state, res) => {
-            return res.json().then(json => {
-              dispatch(getTags());
-              return json;
-            });
-          }
-        },
-        ADD_TAG_FAILURE
-      ]
+      types: [ADD_TAG_REQUEST, ADD_TAG_SUCCESS, ADD_TAG_FAILURE]
     }
   });
+  if (actionResponse.error) {
+    throw new RequestError(actionResponse.error);
+  }
+  return await dispatch(getTags());
 };
