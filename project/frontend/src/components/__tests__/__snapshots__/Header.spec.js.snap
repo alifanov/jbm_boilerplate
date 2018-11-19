@@ -26,24 +26,13 @@ exports[`>>>Header --- Snapshot +++capturing Snapshot of Header 1`] = `
     >
       Tags
     </a>
-    <a
-      className="p-2 text-dark"
-      href="#"
-    >
-      Page #3
-    </a>
-    <a
-      className="p-2 text-dark"
-      href="#"
-    >
-      Page #4
-    </a>
   </nav>
   <a
     className="btn btn-outline-primary"
-    href="#"
+    href="/login/"
+    onClick={[Function]}
   >
-    Sign up
+    Login
   </a>
 </div>
 `;

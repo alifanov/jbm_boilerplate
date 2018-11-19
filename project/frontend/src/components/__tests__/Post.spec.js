@@ -9,9 +9,9 @@ import renderer from "react-test-renderer";
 
 describe(">>> Post test", () => {
   let post;
-  const content = { title: "Title1", text: "Text1" };
+  const content = { title: "Title1", text: "Text1", tags: [] };
   beforeEach(() => {
-    post = shallow(<Post content={content} />);
+    post = shallow(<Post {...content} />);
   });
 
   it("+++ render Post component", () => {
@@ -27,7 +27,7 @@ describe(">>> Post test", () => {
   });
   it("+++ check for delete Post", () => {
     const mockDeleteFn = jest.fn();
-    const post = shallow(<Post content={content} onDelete={mockDeleteFn} />);
+    const post = shallow(<Post onDelete={mockDeleteFn} {...content} />);
     const component = post.dive();
     component
       .find("CardHeader>FaTimesCircle")
@@ -43,12 +43,13 @@ describe(">>>Post --- Snapshot", () => {
     const content = {
       title: "Title1",
       text: "Text1",
+      tags: [],
       created_at: new Date(2018, 1, 1, 11, 11, 11, 11)
     };
     const renderedValue = renderer
       .create(
         <MemoryRouter>
-          <Post content={content} />
+          <Post {...content} />
         </MemoryRouter>
       )
       .toJSON();

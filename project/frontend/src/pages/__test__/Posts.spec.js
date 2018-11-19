@@ -28,7 +28,10 @@ describe(">>>POSTS --- test smart component/page", () => {
     const dummy = shallow(
       <PostList
         filters={{ from: null, to: null, q: null }}
-        posts={[{ title: "1", text: "11" }, { title: "2", text: "22" }]}
+        posts={[
+          { title: "1", text: "11", tags: [] },
+          { title: "2", text: "22", tags: [] }
+        ]}
         postsCounter={1}
         getPosts={() => null}
         wsConnect={() => null}
@@ -45,7 +48,10 @@ describe(">>>Posts --- Snapshot", () => {
         <MemoryRouter>
           <PostList
             filters={{ from: null, to: null, q: null }}
-            posts={[{ title: "1", text: "11" }, { title: "2", text: "22" }]}
+            posts={[
+              { title: "1", text: "11", tags: [] },
+              { title: "2", text: "22", tags: [] }
+            ]}
             postsCounter={1}
             getPosts={() => null}
             wsConnect={() => null}

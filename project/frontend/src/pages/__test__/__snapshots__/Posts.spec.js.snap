@@ -54,6 +54,62 @@ exports[`>>>Posts --- Snapshot +++capturing 1`] = `
         />
       </div>
       <div
+        className="position-relative form-group"
+      >
+        <div
+          className="react-tags"
+          onClick={[Function]}
+        >
+          <div
+            aria-live="polite"
+            aria-relevant="additions removals"
+            className="react-tags__selected"
+          />
+          <div
+            className="react-tags__search"
+          >
+            <div
+              className="react-tags__search-input"
+            >
+              <input
+                aria-activedescendant={null}
+                aria-autocomplete="list"
+                aria-expanded={false}
+                aria-label="Add new tag"
+                aria-owns="ReactTags-listbox"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Add new tag"
+                role="combobox"
+                style={
+                  Object {
+                    "width": null,
+                  }
+                }
+                value=""
+              />
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "overflow": "scroll",
+                    "position": "absolute",
+                    "visibility": "hidden",
+                    "whiteSpace": "pre",
+                    "width": 0,
+                  }
+                }
+              >
+                Add new tag
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
         className="d-flex justify-content-end"
       >
         <button
@@ -172,6 +228,9 @@ exports[`>>>Posts --- Snapshot +++capturing 1`] = `
         11
       </p>
       <div
+        className="post-tags"
+      />
+      <div
         className="d-flex justify-content-between align-items-center"
       >
         <div
@@ -190,9 +249,9 @@ exports[`>>>Posts --- Snapshot +++capturing 1`] = `
         >
           Published: 
           <time
-            dateTime={"2018-11-16T09:49:01.398Z"}
+            dateTime={"2018-11-19T10:23:38.466Z"}
           >
-            16.11.2018 12:49
+            19.11.2018 13:23
           </time>
         </small>
       </div>
@@ -238,6 +297,9 @@ exports[`>>>Posts --- Snapshot +++capturing 1`] = `
         22
       </p>
       <div
+        className="post-tags"
+      />
+      <div
         className="d-flex justify-content-between align-items-center"
       >
         <div
@@ -256,9 +318,9 @@ exports[`>>>Posts --- Snapshot +++capturing 1`] = `
         >
           Published: 
           <time
-            dateTime={"2018-11-16T09:49:01.399Z"}
+            dateTime={"2018-11-19T10:23:38.468Z"}
           >
-            16.11.2018 12:49
+            19.11.2018 13:23
           </time>
         </small>
       </div>

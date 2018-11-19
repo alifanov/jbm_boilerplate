@@ -1,21 +1,34 @@
 import React from "react";
-import Header from "../Header";
+import Header, { Header as DummyHeader } from "../Header";
 import { shallow, mount } from "../../enzyme";
 import { MemoryRouter } from "react-router-dom";
+import configureStore from "redux-mock-store";
 
 import renderer from "react-test-renderer";
+
+const mockStore = configureStore();
+
+const store = mockStore({
+  auth: {
+    access: { token: "token" },
+    refresh: {
+      token: "token"
+    }
+  }
+});
 
 describe(">>> Header test", () => {
   let header;
   beforeEach(() => {
-    header = shallow(<Header />);
+    header = shallow(<Header store={store} />);
   });
 
   it("+++ render Header component", () => {
     expect(header.length).toEqual(1);
   });
   it("+++ check text for Header", () => {
-    expect(header.find("div>h5").text()).toEqual("Simple blog");
+    const header = shallow(<DummyHeader isAuthenticated={false} />);
+    expect(header.find("h5").text()).toEqual("Simple blog");
   });
 });
 
@@ -24,7 +37,7 @@ describe(">>>Header --- Snapshot", () => {
     const renderedValue = renderer
       .create(
         <MemoryRouter>
-          <Header />
+          <Header store={store} />
         </MemoryRouter>
       )
       .toJSON();

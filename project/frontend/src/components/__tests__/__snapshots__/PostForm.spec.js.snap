@@ -53,6 +53,62 @@ exports[`>>>PostForm --- Snapshot +++capturing 1`] = `
       />
     </div>
     <div
+      className="position-relative form-group"
+    >
+      <div
+        className="react-tags"
+        onClick={[Function]}
+      >
+        <div
+          aria-live="polite"
+          aria-relevant="additions removals"
+          className="react-tags__selected"
+        />
+        <div
+          className="react-tags__search"
+        >
+          <div
+            className="react-tags__search-input"
+          >
+            <input
+              aria-activedescendant={null}
+              aria-autocomplete="list"
+              aria-expanded={false}
+              aria-label="Add new tag"
+              aria-owns="ReactTags-listbox"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Add new tag"
+              role="combobox"
+              style={
+                Object {
+                  "width": null,
+                }
+              }
+              value=""
+            />
+            <div
+              style={
+                Object {
+                  "height": 0,
+                  "overflow": "scroll",
+                  "position": "absolute",
+                  "visibility": "hidden",
+                  "whiteSpace": "pre",
+                  "width": 0,
+                }
+              }
+            >
+              Add new tag
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
       className="d-flex justify-content-end"
     >
       <button

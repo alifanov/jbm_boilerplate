@@ -41,6 +41,9 @@ exports[`>>>Post --- Snapshot +++capturing Snapshot of Post 1`] = `
       Text1
     </p>
     <div
+      className="post-tags"
+    />
+    <div
       className="d-flex justify-content-between align-items-center"
     >
       <div

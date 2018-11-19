@@ -7,131 +7,170 @@ import {
   POST_SEARCH_FILTER_SET,
   getPosts,
   addPost,
-  delPost
+  delPost,
+  GET_POSTS_REQUEST,
+  DEL_POST_REQUEST,
+  DEL_POST_SUCCESS,
+  ADD_POST_REQUEST,
+  ADD_POST_SUCCESS
 } from "../posts";
 
-import fetchMock from "fetch-mock";
+// import fetchMock from "fetch-mock";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
-const mockStore = configureMockStore([thunk]);
+import { apiMiddleware } from "redux-api-middleware";
+const mockStore = configureMockStore([thunk, apiMiddleware]);
 
 describe(">>>A C T I O N --- Test async posts actions", () => {
   let store;
+  const postsData = JSON.stringify([1, 2, 3, 4]);
   beforeEach(() => {
-    fetchMock.reset();
+    fetch.resetMocks();
     store = mockStore({
-      posts: [],
-      postsFilters: { from: null, to: null }
+      auth: {
+        access: { token: "token" },
+        refresh: {
+          token: "token"
+        },
+        errors: {}
+      }
     });
   });
 
   it("+++ actionCreator setPostsSearchFilter", async () => {
-    fetchMock.get("*", [1, 2, 3, 4]);
+    fetch.mockResponseOnce(postsData, {
+      status: 200,
+      headers: { "content-type": "application/json" }
+    });
 
     await store.dispatch(setPostsSearchFilter("q"));
-
-    expect(store.getActions()[0]).toEqual({
-      type: POST_SEARCH_FILTER_SET,
-      q: "q"
-    });
-
-    await new Promise(resolve => {
-      setTimeout(resolve, 0);
-    });
-
-    expect(store.getActions()[3]).toEqual({
-      type: GET_POSTS_SUCCESS,
-      payload: [1, 2, 3, 4]
-    });
+    const expectedActions = [
+      {
+        type: POST_SEARCH_FILTER_SET,
+        q: "q"
+      },
+      {
+        type: GET_POSTS_REQUEST
+      },
+      {
+        type: GET_POSTS_SUCCESS,
+        payload: [1, 2, 3, 4]
+      }
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
   it("+++ actionCreator updatePostsFilter [from]", async () => {
-    fetchMock.get("*", [1, 2, 3, 4]);
+    fetch.mockResponseOnce(postsData, {
+      status: 200,
+      headers: { "content-type": "application/json" }
+    });
+
     const d = new Date();
-
     await store.dispatch(updatePostsFilter(d, null));
-
-    expect(store.getActions()[0]).toEqual({
-      type: POST_FROM_FILTER_SET,
-      from: d
-    });
-    expect(store.getActions()[1]).toEqual({
-      type: POST_TO_FILTER_SET,
-      to: null
-    });
-
-    await new Promise(resolve => {
-      setTimeout(resolve, 0);
-    });
-
-    expect(store.getActions()[4]).toEqual({
-      type: GET_POSTS_SUCCESS,
-      payload: [1, 2, 3, 4]
-    });
+    const expectedActions = [
+      {
+        type: POST_FROM_FILTER_SET,
+        from: d
+      },
+      {
+        type: POST_TO_FILTER_SET,
+        to: null
+      },
+      {
+        type: GET_POSTS_REQUEST
+      },
+      {
+        type: GET_POSTS_SUCCESS,
+        payload: [1, 2, 3, 4]
+      }
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
   it("+++ actionCreator updatePostsFilter [to]", async () => {
-    fetchMock.get("*", [1, 2, 3, 4]);
+    fetch.mockResponseOnce(postsData, {
+      status: 200,
+      headers: { "content-type": "application/json" }
+    });
+
     const d = new Date();
-
     await store.dispatch(updatePostsFilter(null, d));
-
-    expect(store.getActions()[0]).toEqual({
-      type: POST_FROM_FILTER_SET,
-      from: null
-    });
-    expect(store.getActions()[1]).toEqual({
-      type: POST_TO_FILTER_SET,
-      to: d
-    });
-
-    await new Promise(resolve => {
-      setTimeout(resolve, 0);
-    });
-
-    expect(store.getActions()[4]).toEqual({
-      type: GET_POSTS_SUCCESS,
-      payload: [1, 2, 3, 4]
-    });
+    const expectedActions = [
+      {
+        type: POST_FROM_FILTER_SET,
+        from: null
+      },
+      {
+        type: POST_TO_FILTER_SET,
+        to: d
+      },
+      {
+        type: GET_POSTS_REQUEST
+      },
+      {
+        type: GET_POSTS_SUCCESS,
+        payload: [1, 2, 3, 4]
+      }
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
   it("+++ actionCreator getPosts", async () => {
-    fetchMock.get("*", [1, 2, 3, 4]);
+    fetch.mockResponseOnce(postsData, {
+      status: 200,
+      headers: { "content-type": "application/json" }
+    });
 
     await store.dispatch(getPosts());
-
-    expect(store.getActions()[2]).toEqual({
-      type: GET_POSTS_SUCCESS,
-      payload: [1, 2, 3, 4]
-    });
+    const expectedActions = [
+      {
+        type: GET_POSTS_REQUEST
+      },
+      {
+        type: GET_POSTS_SUCCESS,
+        payload: [1, 2, 3, 4]
+      }
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
   it("+++ actionCreator delPost", async () => {
-    fetchMock.deleteOnce("*", 204);
-    fetchMock.getOnce("*", [1, 2, 3, 4]);
+    fetch.mockResponseOnce(null, { stauts: 204 }).mockResponseOnce(postsData, {
+      status: 200,
+      headers: { "content-type": "application/json" }
+    });
 
     await store.dispatch(delPost(1));
-
-    await new Promise(resolve => {
-      setTimeout(resolve, 0);
-    });
-
-    expect(store.getActions()[4]).toEqual({
-      type: GET_POSTS_SUCCESS,
-      payload: [1, 2, 3, 4]
-    });
+    const expectedActions = [
+      { type: DEL_POST_REQUEST },
+      { type: DEL_POST_SUCCESS },
+      {
+        type: GET_POSTS_REQUEST
+      },
+      {
+        type: GET_POSTS_SUCCESS,
+        payload: [1, 2, 3, 4]
+      }
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
   it("+++ actionCreator addPost", async () => {
-    fetchMock.postOnce("*", 201);
-    fetchMock.getOnce("*", [1, 2, 3, 4]);
-
-    await store.dispatch(addPost(1, 2));
-
-    await new Promise(resolve => {
-      setTimeout(resolve, 0);
+    fetch.mockResponseOnce(null, { status: 201 }).mockResponseOnce(postsData, {
+      status: 200,
+      headers: { "content-type": "application/json" }
     });
 
-    expect(store.getActions()[4]).toEqual({
-      type: GET_POSTS_SUCCESS,
-      payload: [1, 2, 3, 4]
-    });
+    await store.dispatch(addPost("title", "text", []));
+    const expectedActions = [
+      { type: ADD_POST_REQUEST },
+      { type: ADD_POST_SUCCESS },
+      {
+        type: GET_POSTS_REQUEST
+      },
+      {
+        type: GET_POSTS_SUCCESS,
+        payload: [1, 2, 3, 4]
+      }
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });

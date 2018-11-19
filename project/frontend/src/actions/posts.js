@@ -1,4 +1,4 @@
-import { RSAA } from "redux-api-middleware";
+import { RSAA, RequestError } from "redux-api-middleware";
 import { withAuth } from "../reducers";
 import { objectToQuery } from "../utils";
 
@@ -23,7 +23,7 @@ const preprocessFilters = (from, to, q) => {
   return { created_at__gte: _from, created_at__lte: _to, search: q };
 };
 
-export const getPosts = (from = null, to = null, q = null) => dispatch => {
+export const getPosts = (from = null, to = null, q = null) => dispatch =>
   dispatch({
     [RSAA]: {
       endpoint:
@@ -35,73 +35,53 @@ export const getPosts = (from = null, to = null, q = null) => dispatch => {
       types: [GET_POSTS_REQUEST, GET_POSTS_SUCCESS, GET_POSTS_FAILURE]
     }
   });
-};
-
-export const delPost = id => dispatch => {
-  dispatch({
+export const delPost = id => async (dispatch, getState) => {
+  const actionResponse = await dispatch({
     [RSAA]: {
       endpoint: BASE_URL + "/api/posts/" + id + "/",
       method: "DELETE",
       headers: withAuth({ "Content-Type": "application/json" }),
-      types: [
-        DEL_POST_REQUEST,
-        {
-          type: DEL_POST_SUCCESS,
-          payload: (action, state, res) => {
-            dispatch(getPosts());
-          }
-        },
-        DEL_POST_FAILURE
-      ]
+      types: [DEL_POST_REQUEST, DEL_POST_SUCCESS, DEL_POST_FAILURE]
     }
   });
+  if (actionResponse.error) {
+    throw new RequestError(actionResponse.error);
+  }
+  return await dispatch(getPosts());
 };
-export const addPost = (title, text, tags) => dispatch => {
-  console.log(tags);
-  dispatch({
+export const addPost = (title, text, tags) => async (dispatch, getState) => {
+  const actionResponse = await dispatch({
     [RSAA]: {
       endpoint: BASE_URL + "/api/posts/",
       method: "POST",
       body: JSON.stringify({ title, text, tags }),
       headers: withAuth({ "Content-Type": "application/json" }),
-      types: [
-        ADD_POST_REQUEST,
-        {
-          type: ADD_POST_SUCCESS,
-          payload: (action, state, res) => {
-            return res.json().then(json => {
-              dispatch(getPosts());
-              return json;
-            });
-          }
-        },
-        ADD_POST_FAILURE
-      ]
+      types: [ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE]
     }
   });
+  if (actionResponse.error) {
+    throw new RequestError(actionResponse.error);
+  }
+  return await dispatch(getPosts());
 };
 
-export const setPostsSearchFilter = q => {
-  return (dispatch, getState) => {
-    dispatch({
-      type: POST_SEARCH_FILTER_SET,
-      q
-    });
-    const { from, to } = getState();
-    dispatch(getPosts(from, to, q));
-  };
+export const setPostsSearchFilter = q => (dispatch, getState) => {
+  dispatch({
+    type: POST_SEARCH_FILTER_SET,
+    q
+  });
+  const { from, to } = getState();
+  return dispatch(getPosts(from, to, q));
 };
 
-export function updatePostsFilter(from, to) {
-  return dispatch => {
-    dispatch({
-      type: POST_FROM_FILTER_SET,
-      from
-    });
-    dispatch({
-      type: POST_TO_FILTER_SET,
-      to
-    });
-    dispatch(getPosts(from, to));
-  };
-}
+export const updatePostsFilter = (from, to) => dispatch => {
+  dispatch({
+    type: POST_FROM_FILTER_SET,
+    from
+  });
+  dispatch({
+    type: POST_TO_FILTER_SET,
+    to
+  });
+  return dispatch(getPosts(from, to));
+};
