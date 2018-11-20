@@ -10,6 +10,7 @@ import { Camera, Permissions } from "expo";
 
 import reducer from "./reducers";
 
+import { apiMiddleware } from "redux-api-middleware";
 import { notificationMiddleware, wsMiddleware } from "./middlewares";
 
 import {
@@ -59,7 +60,7 @@ const RootStack = createBottomTabNavigator(
 
 const store = createStore(
   reducer,
-  applyMiddleware(thunk, wsMiddleware, notificationMiddleware)
+  applyMiddleware(thunk, apiMiddleware, wsMiddleware, notificationMiddleware)
 );
 
 export default class App extends React.Component {

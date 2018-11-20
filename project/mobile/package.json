@@ -3,7 +3,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
-    "start": "expo start",
+    "start": "REACT_APP_API_URL=http://192.168.1.38:8000 expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
@@ -24,6 +24,7 @@
     "react-navigation": "^2.18.2",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1",
+    "redux-api-middleware": "^3.0.1",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
