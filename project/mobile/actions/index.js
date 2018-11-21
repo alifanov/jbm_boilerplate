@@ -1,11 +1,14 @@
 import { RSAA, RequestError } from "redux-api-middleware";
 import { objectToQuery } from "../utils";
 
+import { REACT_APP_API_URL } from "react-native-dotenv";
+
 export const GET_POSTS_REQUEST = "@@posts/GET_POSTS_REQUEST";
 export const GET_POSTS_SUCCESS = "@@posts/GET_POSTS_SUCCESS";
 export const GET_POSTS_FAILURE = "@@posts/GET_POSTS_FAILURE";
 
-const BASE_URL = "http://192.168.1.38:8000"; //process.env.REACT_APP_API_URL;
+const BASE_URL = REACT_APP_API_URL;
+console.log("API URL:", BASE_URL);
 
 const preprocessFilters = (from, to, q) => {
   const _from = from && from.toISOString();
